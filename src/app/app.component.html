@@ -1,27 +1,117 @@
-<ion-app>
+<div *ngIf='isLoad' class="load">
+  <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+</div>
+
+<ion-app [ngClass]="(isLoad==true)?'mask':'no-mask'">
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content" type="overlay" side="end" menuToggle="right">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
-
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
+        <div class="withLogin" *ngIf='lg'>
+          <div class="user">
+            <div class="user-div"><img src="../../../assets/icon/user-regular-profile.svg"></div>
+            <h1 *ngIf='!lg'>Usuário<br>
+              &nbsp;&nbsp;<span>Rank --</span>
+            </h1>
+            <h1 *ngIf='lg'>{{profileUser.nome}}<br>
+              &nbsp;&nbsp;<span>Rank --</span>
+            </h1>
+          </div>
+          <div class="box-shadown">
+            <!-- <ion-item class='item-menu-1' lines='none'>
+              <img src="../assets/icon/house-active.png">
+              <ion-label>Home</ion-label>
+            </ion-item> -->
+          </div>
+          <div class="box-content">
+            <div class="menus">
+              <ion-item (click)="home()" class='item-menu' style="margin-top: -0.5rem;" lines='none'>
+                <img src="../assets/icon/house-active.png">
+                <ion-label>Home</ion-label>
+              </ion-item>
+              <ion-item (click)="myAccount()" class='item-menu' lines='none'>
+                <img src="../assets/icon/icons8-test-account-90.png">
+                <ion-label>Minha conta</ion-label>
+              </ion-item>
+              <ion-item (click)="wallet()" class='item-menu' lines='none'>
+                <img src="../assets/icon/credit-card-solid.svg">
+                <ion-label>Carteira</ion-label>
+              </ion-item>
+              <ion-item (click)="message()" class='item-menu' lines='none'>
+                <img src="../assets/icon/icons8-chat-90.png">
+                <ion-label>Mensagens</ion-label>
+              </ion-item>
+              <ion-item (click)="history()" class='item-menu' lines='none'>
+                <img src="../assets/icon/history-solid.svg">
+                <ion-label>Histórico</ion-label>
+              </ion-item>
+              <ion-item (click)="help()" class='item-menu' lines='none'>
+                <img src="../assets/icon/question-circle-regular.svg">
+                <ion-label>Ajuda</ion-label>
+              </ion-item>
+              <ion-item (click)="config()" class='item-menu' lines='none'>
+                <img src="../assets/icon/icons8-services-240.png">
+                <ion-label>Configurações</ion-label>
+              </ion-item>
+              <ion-item class='item-menu' lines='none' (click)='logout()'>
+                <img src="../assets/icon/logout.png">
+                <ion-label>Sair</ion-label>
+              </ion-item>
+            </div>
+  
+            <ion-row>
+              <ion-item class="item-version" lines='none'> 
+                <img src="../assets/img/logo-preto.png">
+                <ion-label>Versão 1.000.02</ion-label>
+              </ion-item>
+            </ion-row>
+          </div>
+        </div>
+        <div *ngIf='!lg'>
+          <div class="pop-noLogin scale-in-center" >
+            <ion-grid>
+              <ion-row>
+                <img class="logo" src="../assets/img/logo-preto.png">
+              </ion-row>
+              <ion-row>
+                <h1 class="title">Selecione uma opção<br>para continuar</h1>
+              </ion-row>
+              <ion-row style="margin-top: 6rem;">
+                <button class="btn-lg" (click)='goLOGIN()'>Fazer login</button>
+              </ion-row>
+              <ion-row class="bar-options">
+                <h2><span>ou</span></h2>
+              </ion-row>
+              <ion-row style="margin-top: 3rem;">
+                <button class="btn-cds" (click)='goRegister()'>Cadastrar-se</button>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <div class="pop-noLogin flip-2-ver-right-2" *ngIf='makeLogin'>
+            <ion-row style="transform: scaleX(-1);">
+              <button class="btn-back" (click)='backLogin()'>
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </button>
+              <img class="logo" src="../assets/img/logo-preto.png">
+            </ion-row>
+            <ion-row style="transform: scaleX(-1);">
+              <h1 class="title">Faça seu login</h1>
+            </ion-row >
+            <ion-row style="margin-top: 3rem; transform: scaleX(-1);">
+              <div class="input-email"><ion-input [(ngModel)]="email" name='email' placeholder='E-mail'></ion-input></div>
+            </ion-row>
+            <ion-row style="margin-top: 2rem; transform: scaleX(-1);">
+              <div class="input-password"><ion-input type="password" [(ngModel)]="password" name='password' placeholder='Senha'></ion-input></div>
+            </ion-row>  
+            <ion-row style="margin-top: 5rem; transform: scaleX(-1);">
+              <button class="btn-enter" (click)="logIn(email, password)">Entrar</button>
+            </ion-row>
+            <ion-row style="margin-top: 3rem; transform: scaleX(-1);">
+              <div class="forget-password">
+                <h1>Esqueci minha senha</h1>
+              </div>
+            </ion-row>
+          </div>
+        </div>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

@@ -1,0 +1,238 @@
+<div *ngIf='isLoad' class="load">
+  <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+</div>
+
+<ion-content padding [ngClass]="(isLoad==true)?'mask':'no-mask'">
+  <ion-grid>
+    <ion-row>
+      <div class="head-text" *ngIf='!lg'>
+        <h1 class="welcome">Bem-vindo a</h1>
+        <p class="name">Avaris</p>
+      </div>
+      <div class="head-text" *ngIf='lg'>
+        <div *ngIf="profileUser.nome">
+          <h1 class="welcome">Bem-vindo de volta</h1>
+          <p class="name">{{profileUser.nome}}</p>
+        </div>
+        <div *ngIf="profileUser.nome == undefined">
+          <h1 class="welcome">Seja bem-vindo</h1>
+          <p class="name">Ao futuro da mobilidade</p>
+        </div>
+      </div>
+      <div class="head-text" *ngIf="profileUser.nome == undefined">
+        
+      </div>
+      <div class="head-img" (click)='menu()'>
+        <div class="border-profile"><img src="../../../assets/icon/user-regular-profile.svg"></div>
+      </div>
+    </ion-row>
+    <!-- <ion-row class="navBarrow">
+      <ion-col class="ion-align-self-start" >
+        <p>Transporte</p>
+        <div class="dots"></div>
+      </ion-col>
+      <ion-col class="ion-align-self-center" >
+        <p>Food</p>
+        <div class="dots"></div>
+      </ion-col>
+      <ion-col class="ion-align-self-end">
+        <p>Delivery</p>
+        <div class="dots"></div>
+      </ion-col>
+    </ion-row> -->
+    <ion-row> 
+      <div class="controller" [hidden]='destionation'>
+        <ion-item class="item-from" lines='none'>
+          <div class="border-icon-left">
+            <img src="../../../assets/icon/map-marker-alt-solid-active.svg">
+          </div>
+          <ion-label position="stacked">De</ion-label>
+          <!-- <ion-searchbar [(ngModel)]='search' (ionChange)='searchChanged()' ></ion-searchbar> -->
+          <ion-input placeholder='Minha localização' disabled></ion-input>
+          <div class="border-icon-right">
+            <img src="../../../assets/icon/crosshairs-solid.svg">
+          </div>
+        </ion-item>
+        <ion-item class="item-to" lines='none'>
+          <div class="border-icon-left">
+            <img src="../../../assets/icon/location-arrow-solid.svg">
+          </div>
+          <ion-label position="stacked">Para</ion-label>
+          <ion-input [(ngModel)]='search' (ionChange)='searchChanged()' placeholder='Seu destino'></ion-input>
+          <div class="border-icon-right">
+            <img src="../../../assets/icon/search-solid.svg">
+          </div>
+        </ion-item>
+      </div>
+      <button class="back-btn" (click)='back()' [hidden]='!destionation'>
+        <ion-icon name='arrow-back'></ion-icon>
+      </button>
+      <!-- //controller-bar -->
+      <div>
+        <ion-list [hidden]='!search.length' class="listResult">
+          <ion-item (click)='calcRoute(result)' *ngFor='let result of searchResults'>
+            {{result.description}}
+          </ion-item>
+        </ion-list>
+      </div> 
+
+      <div class="pick-location" (click)='pickLocation()' [hidden]='destionation' style="z-index: 1002;">
+        <ion-icon name="locate-outline" style="color: #fff;"></ion-icon>
+      </div>
+      <!-- //Results cars -->
+      <div class="request-car scale-up-ver-bottom slide-in-bottom" [hidden]='!destionation'>
+        <ion-grid class="ion-margin-vertical" *ngIf='step_request'>
+          <ion-row style="margin-top: -1rem;">
+            <ion-col size='6' (click)='option1()'>
+              <div class="box-car" [hidden]='opt1'>
+                <img src="../../../assets/img/car2.svg">           
+              </div>
+              <div class="box-car-selected" [hidden]='!opt1'>
+                <img src="../../../assets/img/car2.svg">           
+              </div>
+              <span class="category">Individual</span>
+              <p class="price">{{price | currency:'BRL':true}}</p>
+            </ion-col>
+            <ion-col size='6' (click)='option3()'>
+              <div class="box-car-subs" [hidden]='opt3'>
+                <img src="../../../assets/img/car1.svg">
+              </div>
+              <div class="box-car-subs-selected" [hidden]='!opt3'>
+                <img src="../../../assets/img/car1.svg">
+              </div>
+              <span class="category">SEJA PREMIUM</span>
+              <p class="price"><span>{{price | currency:'BRL':true}}</span>  &nbsp;{{priceDescont | currency:'BRL':true}}</p>
+            </ion-col>
+          </ion-row>
+          <!-- <ion-row>
+            <ion-col size='4' style="background-color: beige;">
+              <ion-item class="box-options">
+                <ion-icon name="card-outline"></ion-icon>
+                <ion-label>Débito/Crédito</ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size='4'>
+              <ion-item class="box-options">
+                <ion-icon name="share-social"></ion-icon>
+                <ion-label>Compartilhar</ion-label>
+              </ion-item>
+            </ion-col>            
+            <ion-col size='4'>         
+              <ion-item class="box-options">
+                <ion-icon name="ellipsis-horizontal"></ion-icon>
+                <ion-label>Mais opções</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row> -->
+        </ion-grid>
+        <ion-grid class="ion-margin-vertical" *ngIf='!step_request'>
+           <ion-row style="margin-top: -1.5rem;"> 
+             <ion-col size='4'>
+                <ion-item class="item-step2" lines='none'>
+                    <p>Distância</p>        
+                </ion-item>
+                <ion-item style="margin-top: -0.5rem;" class="item-step2" lines='none'>
+                    <span>{{kmRide}}</span> 
+                </ion-item>
+             </ion-col>
+             <ion-col size='4'>
+                <ion-item class="item-step2" lines='none'>
+                  <p style="margin-top: 0.5rem;">Tempo de viagem</p>    
+                </ion-item>
+                <ion-item style="margin-top: -0.5rem;" class="item-step2" lines='none'>
+                  <span style="font-size: 10pt; margin-top: 0rem;">{{timeRide.text}}</span>
+                </ion-item>
+             </ion-col>
+             <ion-col size='4'>
+                <ion-item class="item-step2" lines='none'>
+                  <p>Previsão</p>
+                </ion-item>
+                <ion-item style="margin-top: -0.5rem;" class="item-step2" lines='none'>
+                  <span>{{myHour | date: 'HH:mm'}}</span>
+                </ion-item>
+             </ion-col>
+           </ion-row>
+        </ion-grid>
+        <div *ngIf='step_request' class="bar-options"></div>
+        <div *ngIf='!step_request' style="margin-top: -2rem;" class="bar-options"></div>
+        <ion-row *ngIf='!step_request'>
+             <ion-item class="item-method-payment" lines='none'>
+               <ion-icon name="card-outline" slot="start"></ion-icon>
+               <ion-label>Método de pagamento: </ion-label>
+               <ion-icon class="arrow" name="caret-forward-outline" slot="end"></ion-icon>
+             </ion-item>
+        </ion-row>
+        <div *ngIf='!step_request' style="margin-top: 0rem;" class="bar-options"></div>
+        <!-- STEP 1 -->
+        <div *ngIf='step_request'>
+          <button class="confirm-request" [hidden]='allowStep1'>
+            <p>Selecione uma opção</p>
+         </button>
+         <button class="confirm-request-allowed" [hidden]='!allowStep1' (click)='nextStep()'>
+          <p>Selecione uma opção</p> 
+         </button>
+        </div>
+        <div *ngIf='!step_request'>
+         <button class="confirm-car" (click)="confirmRide()"><!-- (click)='confirmRide()' --> <!-- "makePayment(15)" -->
+          <p>Confirmar</p> 
+         </button>
+        </div>
+      </div>
+
+      <div *ngIf="searchingDriver" class="request-car scale-up-ver-bottom slide-in-bottom" style="z-index: 1003;">
+        <!-- <div>
+          <p class="title-search-drive tracking-in-expand">Procurando um motorista...</p>
+        </div>
+        <div style="margin-top: 1rem;">
+          <lottie-animation-view [options]="lottieConfig2" [width]="100" [height]="100"></lottie-animation-view>
+        </div> -->
+      </div>
+
+      <section *ngIf='loadDriver' id="open-dev" class="wrap-content open-dev">
+
+        <div class="wrap-two-up wrap-two-up-middle">
+          <div class="content content-two-up">
+            <div class="open-dev-radar">
+              <div class="open-dev-radar-pulse"></div>
+              <div class="open-dev-radar-pulse"></div>
+              <div class="open-dev-radar-pulse"></div>
+              <div class="open-dev-radar-pulse"></div>
+            </div>
+          </div>
+      
+        </div>
+      </section>
+
+      <!-- //bar-menu -->
+      <div class="bar-menu" [hidden]='destionation'>
+       <ion-row>
+        <ion-col class="bar-menu-itens">
+          <div class="active-bar">
+            <img src="../../../assets/icon/house-active.png">
+            <h1>Home</h1>
+          </div>
+        </ion-col>
+        <ion-col (click)='chat()'>
+          <div class="bar-item2">
+            <img src="../../../assets/icon/comment-regular.svg">
+            <h1>Chat</h1>
+          </div>
+        </ion-col>
+        <ion-col (click)='menu()'>
+          <div class="bar-item" >
+            <img src="../../../assets/icon/user-regular.svg">
+            <h1>Perfil</h1>
+          </div>
+        </ion-col>
+       </ion-row>
+      </div>
+
+    </ion-row>
+  </ion-grid>
+  <div class="map-box">
+    <div #map id="map" ></div> 
+  </div>
+  <div *ngIf="searchingDriver" style="position: absolute; bottom: -2rem; left: 0; right: 0; margin: auto; display: block; z-index: 1200; width: 90%;">
+    <div id="paypal-button-container"></div>
+  </div>
+</ion-content>

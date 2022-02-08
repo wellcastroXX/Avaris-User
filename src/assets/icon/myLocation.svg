@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <g id="Grupo_119" data-name="Grupo 119" transform="translate(-1150 -3102)">
+    <circle id="Elipse_25" data-name="Elipse 25" cx="100" cy="100" r="100" transform="translate(1150 3102)" fill="#031d44" opacity="0.2"/>
+    <circle id="Elipse_26" data-name="Elipse 26" cx="80" cy="80" r="80" transform="translate(1170 3122)" fill="#031d44" opacity="0.3"/>
+    <circle id="Elipse_27" data-name="Elipse 27" cx="60" cy="60" r="60" transform="translate(1190 3142)" fill="#031d44" opacity="0.4"/>
+    <g id="Elipse_28" data-name="Elipse 28" transform="translate(1220 3172)" fill="none" stroke="#031d44" stroke-width="13">
+      <circle cx="30" cy="30" r="30" stroke="none"/>
+      <circle cx="30" cy="30" r="23.5" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -4,12 +4,12 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary: #031D44;
+  --ion-color-primary-rgb: 3, 29, 68;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #031633;
+  --ion-color-primary-tint: #022355;
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;
@@ -233,4 +233,48 @@
 
     --ion-card-background: #1e1e1e;
   }
+}
+
+* {
+	outline:none;
+}
+*:focus {
+  outline: 0 !important;
+}
+
+@font-face{
+  font-family: 'Coco Sharp';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Coco_Sharp/CocoSharp-Light.otf');
+}
+@font-face{
+  font-family: 'Coco Sharp';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/Coco_Sharp/CocoSharpS-Regular.otf');
+}
+@font-face{
+  font-family: 'Coco Sharp';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/Coco_Sharp/CocoSharp-Heavy.otf');
+}
+@font-face{
+  font-family: 'Coco Sharp';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/Coco_Sharp/CocoSharp-Bold.otf');
+}
+@font-face{
+  font-family: 'Coco Sharp';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../assets/fonts/Coco_Sharp/CocoSharp-Extrabold.otf');
+}
+@font-face{
+  font-family: 'Coco Sharp';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../assets/fonts/Coco_Sharp/CocoSharpXS-Extrabold.otf');
 }

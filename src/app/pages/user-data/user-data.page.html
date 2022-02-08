@@ -1,0 +1,183 @@
+<div *ngIf='isLoad' class="load">
+  <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+</div>
+
+<ion-content [ngClass]="(isLoad==true)?'mask':'no-mask'">
+  <div *ngIf='Step1'>
+    <ion-grid>
+      <ion-row class="logo">
+        <!-- <ion-icon (click)='back()' name="chevron-back-outline"></ion-icon> -->
+        <h1 class="header-title">Seus dados</h1>
+      </ion-row>
+    
+      <ion-row>
+        <div class="container">
+          <ion-row>
+            <h1 class="title">Qual é o seu<br><span>CPF</span>?</h1>
+          </ion-row>
+          <form>    
+            <ion-item class="input-item" lines="none" >
+              <ion-input type="text" placeholder='CPF' [brmasker]="{person: true}" [(ngModel)]="cpf" name='cpf' required ></ion-input>
+            </ion-item> 
+          </form>
+            
+        </div>
+      </ion-row>
+    </ion-grid>
+    <ion-row class="bottom-btn">
+      <div style="width: 50%; height: 100%; float: left; left: 0;">
+        <div class="title-steps">
+          <h1>Etapa 1 de 5</h1>
+        </div>
+        <div class="steps"><div class="level_1"></div></div>
+      </div>
+      <div style="width: 50%; height: 100%; float: right; right: 0;">
+        <button class="btn-continue" (click)='nextStep1()'>
+          continuar
+        </button>
+      </div>
+    </ion-row>
+  </div>
+  <div *ngIf='Step2'>
+    <ion-grid>
+      <ion-row class="logo">
+        <ion-icon (click)='backStep1()' name="chevron-back-outline"></ion-icon>
+        <h1 class="header-title">Seus dados</h1>
+      </ion-row>
+    
+      <ion-row>
+        <div class="container">
+          <ion-row>
+            <h1 class="title">Qual é seu primeiro<br><span>Nome</span>?</h1>
+          </ion-row>
+          <form>    
+            <ion-item class="input-item" lines="none" >
+              <ion-input type="text" placeholder='Primeiro nome' [(ngModel)]="nome" name='nome' required ></ion-input>
+            </ion-item> 
+          </form>
+            
+        </div>
+      </ion-row>
+    </ion-grid>
+    <ion-row class="bottom-btn">
+      <div style="width: 50%; height: 100%; float: left; left: 0;">
+        <div class="title-steps">
+          <h1>Etapa 2 de 5</h1>
+        </div>
+        <div class="steps"><div class="level_2"></div></div>
+      </div>
+      <div style="width: 50%; height: 100%; float: right; right: 0;">
+        <button class="btn-continue" (click)='nextStep2()'>
+          continuar
+        </button>
+      </div>
+    </ion-row>
+  </div>
+  <div *ngIf='Step3'>
+    <ion-grid>
+      <ion-row class="logo">
+        <ion-icon (click)='backStep2()' name="chevron-back-outline"></ion-icon>
+        <h1 class="header-title">Seus dados</h1>
+      </ion-row>
+    
+      <ion-row>
+        <div class="container">
+          <ion-row>
+            <h1 class="title">Qual é o seu<br><span>Sobrenome</span>?</h1>
+          </ion-row>
+          <form>    
+            <ion-item class="input-item" lines="none" >
+              <ion-input type="text" placeholder='Sobrenome' [(ngModel)]="sobrenome" name='sobrenome' required ></ion-input>
+            </ion-item> 
+          </form>
+            
+        </div>
+      </ion-row>
+    </ion-grid>
+    <ion-row class="bottom-btn">
+      <div style="width: 50%; height: 100%; float: left; left: 0;">
+        <div class="title-steps">
+          <h1>Etapa 3 de 5</h1>
+        </div>
+        <div class="steps"><div class="level_3"></div></div>
+      </div>
+      <div style="width: 50%; height: 100%; float: right; right: 0;">
+        <button class="btn-continue" (click)='nextStep3()'>
+          continuar
+        </button>
+      </div>
+    </ion-row>
+  </div>
+  <div *ngIf='Step4'>
+    <ion-grid>
+      <ion-row class="logo">
+        <ion-icon (click)='backStep3()' name="chevron-back-outline"></ion-icon>
+        <h1 class="header-title">Seus dados</h1>
+      </ion-row>
+    
+      <ion-row>
+        <div class="container">
+          <ion-row>
+            <h1 class="title">Qual é sua data de<br><span>Nascimento</span>?</h1>
+          </ion-row>
+          <form>    
+            <ion-item class="input-item" lines="none" >
+              <ion-input type="date" placeholder='Data de nascimento' [(ngModel)]="datadenascimento" name='datadenascimento' required ></ion-input>
+            </ion-item> 
+          </form>
+            
+        </div>
+      </ion-row>
+    </ion-grid>
+    <ion-row class="bottom-btn">
+      <div style="width: 50%; height: 100%; float: left; left: 0;">
+        <div class="title-steps">
+          <h1>Etapa 4 de 5</h1>
+        </div>
+        <div class="steps"><div class="level_4"></div></div>
+      </div>
+      <div style="width: 50%; height: 100%; float: right; right: 0;">
+        <button class="btn-continue" (click)='nextStep4()'>
+          continuar
+        </button>
+      </div>
+    </ion-row>
+  </div>
+  <div *ngIf='Step5'>
+    <ion-grid>
+      <ion-row class="logo">
+        <ion-icon (click)='backStep4()' name="chevron-back-outline"></ion-icon>
+        <h1 class="header-title">Seus dados</h1>
+      </ion-row>
+    
+      <ion-row>
+        <div class="container">
+          <ion-row>
+            <h1 class="title">Qual o seu número<br>de<span> Celular</span>?</h1>
+          </ion-row>
+          <form>    
+            <ion-item class="input-item" lines="none" >
+              <img src="../../../assets/icon/brazil.png">
+              <ion-label>+55</ion-label>
+              <ion-input type="text" placeholder='Celular' [(ngModel)]="celular" name='celular' required [brmasker]="{phone: true}"></ion-input>
+            </ion-item> 
+          </form>
+            
+        </div>
+      </ion-row>
+    </ion-grid>
+    <ion-row class="bottom-btn">
+      <div style="width: 50%; height: 100%; float: left; left: 0;">
+        <div class="title-steps">
+          <h1>Etapa 5 de 5</h1>
+        </div>
+        <div class="steps"><div class="level_5"></div></div>
+      </div>
+      <div style="width: 50%; height: 100%; float: right; right: 0;">
+        <button class="btn-continue" (click)='saveData(cpf, nome, sobrenome, datadenascimento, celular)'>
+          finalizar
+        </button>
+      </div>
+    </ion-row>
+  </div>
+</ion-content>

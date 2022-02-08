@@ -1,0 +1,11 @@
+ion-content{
+    --background: #fff;
+}
+
+
+.item-title{
+    --background: transparent; margin-left: -0.5rem;
+    ion-label{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 22pt; color: #031D44;}
+    ion-icon{ width: 18px; height: 18px; color: #031D44; }
+    .sub{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; }
+}
