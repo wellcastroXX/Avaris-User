@@ -16,10 +16,7 @@
   "dependencies": {
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1",
-    "hbs": "^4.1.2",
-    "mercadopago": "^1.5.12",
-    "open": "^8.4.0",
-    "stripe": "^8.195.0"
+    "iugu": "0.0.6"
   },
   "devDependencies": {
     "eslint": "^7.6.0",

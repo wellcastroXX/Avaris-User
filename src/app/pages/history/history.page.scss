@@ -2,9 +2,268 @@ ion-content{
     --background: #fff;
 }
 
-
 .item-title{
     --background: transparent; margin-left: -0.5rem;
     ion-label{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 22pt; color: #031D44;}
     .sub{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; }
+}
+
+.header{/* height: 40%; border-radius: 0px 0px 0px 100px;*/
+  background-color: rgb(255, 244, 202); width: 100%; top: 0; z-index: 2000;
+  height: 320px; border-radius: 0px 0px 0px 60px; position: absolute;
+}
+.left{
+    float: left; left: 0; margin-top: 0.5rem; margin-top: 1.2rem; z-index: 1001;
+}
+.btn-back{ background-color: transparent;
+    ion-icon{width: 20px; height: 20px;} 
+}
+.title{
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18pt; color: #101010; 
+    float: left; left: 0; margin-top: 3rem; margin-left: -1.3rem;
+}
+.subtitle{
+  font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 9pt; color: #101010; 
+  float: left; left: 0; margin-top: 0rem; margin-left: 0.7rem;
+}
+//Footer-bar-menu
+.nav { z-index: 2000;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    display: flex;
+    overflow-x: auto;
+  }
+  .nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #444444;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+  }
+  .nav__link:hover {
+    background-color: #eeeeee;
+  }
+  .nav__link--active {
+    color: #009578;
+  }
+  .nav__icon {
+    width: 20px; height: 20px;
+  }
+  .item-actived{ width: 5px; height: 5px; border-radius: 50%; position: absolute; bottom: 0.5rem; background-color: #031D44; margin-left: 0rem; }
+  
+  //Footer-bar-menu
+  //CALENDAR
+  
+  .usuario-linha {
+    display: flex;
+    align-items: center;
+  }
+  
+  .usuario-nome {
+    margin-left: 10px;
+  }
+
+
+  .calendar{ margin-top: 1rem; position: relative; z-index: 2001; }
+  .semana {
+    display: flex; margin: auto;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+    margin-top: 15px;
+    background-color: transparent;
+    padding: 10px 0 10px 0;
+  }
+  
+  .dia {
+    padding: 0 10px 0 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 18px;
+  }
+  
+  .dia > p{
+    text-align: center;
+  }
+  
+  .dia-comum {
+    background-color: #fff; width: 50px; height: 90px;
+    border-radius: 40px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    .day-comum{
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 17pt; color: #031D44; margin-top: 1rem;
+    }
+    .day{ display: none; }
+    .day-name{
+      font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 8pt; color: #101010; margin-top: -1.5rem;
+    }
+  }
+  
+  .dia-selecionado {
+    background-color: #031D44; width: 50px; height: 90px;
+    border-radius: 40px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    .day{ 
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 17pt; color: #ffffff; margin-top: 1rem;
+    }
+    .day-comum{ display: none;}
+    .day-name{
+      font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 8pt; color: #ffffff; margin-top: -1.5rem;
+    }
+  }
+  
+  .houve-corrida {
+    font-weight: bold;
+    color: rgb(213, 38, 38);
+  }
+  
+  .row-buttons {
+    width: 80%;
+    top: 1rem;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative; z-index: 2001;
+    ion-icon{ width: 20px; height: 20px; color: #031D44; }
+  }
+  .month{
+    margin-top: -1.2rem;
+    p{font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14pt; color: #031D44; }
+  }
+  
+  .today-event{
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15pt; color: #101010; margin-left: 1.5rem;
+    span{ font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 10pt; color: #101010; }
+  }
+  
+
+  //
+  // 
+  //Time Line - calendar
+  .time{position:absolute; left:-110px; font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 10pt; color: #101010; }
+.timeline-wrapper {
+padding-left:80px;
+margin-left: 0.5rem;
+height: 100%;
+margin-top: 2rem;
+min-width: 400px;
+font-family: 'Helvetica';
+font-size: 14px;
+/*border: 1px solid #CCC;*/
+}
+.StepProgress {
+position: relative;
+padding-left: 45px;
+list-style: none; 
+}
+.StepProgress::before {
+display: inline-block;
+content: '';
+position: absolute;
+top: 0;
+left: 15px;
+width: 10px;
+height: 100%;
+border-left: 2px solid #CCC;
+margin-left: -1rem;
+}
+.StepProgress-item {
+position: relative; height: 100px;
+counter-increment: list;
+}
+.StepProgress-item:not(:last-child) {
+padding-bottom: 20px; 
+}
+.StepProgress-item::before {
+display: inline-block;
+content: '';
+position: absolute;
+left: -30px;
+height: 100%;
+width: 10px;
+margin-left: -1rem;
+}
+.StepProgress-item::after {
+content: '';
+display: inline-block;
+position: absolute;
+top: 0;
+left: -37px;
+margin-left: -1rem;
+width: 12px;
+height: 12px;
+border: 2px solid #CCC;
+border-radius: 50%;
+background-color: #FFF;
+}
+.StepProgress-item.is-done::before {
+border-left: 2px solid #031D44;
+}
+.StepProgress-item.is-done::after {
+/*content: "?";*/
+font-size: 10px;
+color: #FFF;
+text-align: center;
+border: 2px solid #031D44;
+background-color: #031D44;
+}
+/*.StepProgress-item.current::before { 
+border-left: 2px solid green;
+}
+.StepProgress-item.current::after {
+content: counter(list);
+padding-top: 1px;
+width: 19px;
+height: 18px;
+top: -4px;
+left: -40px;
+font-size: 14px;
+text-align: center;
+color: green;
+border: 2px solid green;
+background-color: white;
+}*/
+.StepProgress strong {
+display: block;
+}
+.box-event-done{
+  background-color: #fff; border-radius: 12px; width: 100%; height: 95px; margin-left: -1rem; 
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px; border-left: 5px #031D44 solid;
+  .item-title{
+    width: 100%; --background: transparent; height: 25px;
+    .l1{ font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 9pt; color: #101010; margin-top: -1rem; margin-left: -0.5rem;}
+    .l2{ font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 6pt; color: #101010; margin-top: -0.5rem; margin-left: 1rem;}
+  }
+  .item-sub{
+    width: 100%; --background: transparent; 
+    .title{ font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 9pt; color: #101010; margin-top: -0.5rem; margin-left: 0rem;}
+  }
+  .item-info{
+    width: 100%; --background: transparent; 
+    .l1{ font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 9pt; color: #101010; margin-top: -1rem; margin-left: -0.5rem;}
+    ion-icon{ width: 20px; height: 20px; color: #101010; margin-top: -1rem; margin-left: 1rem; }
+  }
+}
+.box-event-current{
+  background-color: #fff; border-radius: 12px; width: 100%; height: 95px; margin-left: -1rem;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px; 
+}
+
+.empty-travel{ margin-top: 6rem;
+  ion-label{font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 12pt; color: #101010; text-align: center; margin: auto; display: block;}
 }

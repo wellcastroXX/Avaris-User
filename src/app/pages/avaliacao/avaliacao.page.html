@@ -1,0 +1,19 @@
+<ion-card>
+  <ion-card-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="titulo">
+          Sua opinião é importante para nós!
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-card-header>
+  <ion-card-content class="conteudo">
+    <h2>Qual sua avaliação para o motorista?</h2>
+    <!-- <app-estrelas (ionClick)="log($event)"></app-estrelas> -->
+    <app-emojis (ionClick)="log($event)"></app-emojis>
+    <textarea name="msg" id="msg" cols="30" rows="4" placeholder="Deixe sua mensagem" [(ngModel)]="msg"></textarea>
+    <input type="text" [(ngModel)]="media">
+    <ion-button (click)="send()">Enviar</ion-button>
+  </ion-card-content>
+</ion-card>

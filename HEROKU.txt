@@ -1,0 +1,3 @@
+Nome: api-cors-proxy-avaris
+Git: https://git.heroku.com/api-cors-proxy-avaris.git
+Url: https://api-cors-proxy-avaris.herokuapp.com/

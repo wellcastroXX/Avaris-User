@@ -1,4 +1,37 @@
-<ion-content>
+<div *ngIf='isLoad' class="load">
+  <div *ngIf='loading'>
+    <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+  </div>
+  <div *ngIf='success'>
+    <div class="box_alerts" >
+       <img src="../../../assets/icon/success.svg">
+       <h1>Cadastrado</h1> 
+       <p>Seu cartão foi cadastrado com sucesso</p>
+       <hr width="90%" color="#ddd">
+       <button style="background-color: #71BE34; margin-top: 2rem;" (click)="CloseBox()">Ok</button>
+    </div>
+  </div>
+  <div *ngIf='warning'>
+    <div class="box_alerts">
+      <img src="../../../assets/icon/warning.svg">
+      <h1>Atenção</h1> 
+      <p>Dados incorretos, revise seus dados e tente novamente.</p>
+      <hr width="90%" color="#ddd">
+      <button style="background-color: #FFB703; margin-top: 2rem;" (click)="CloseBox()">Ok</button>
+    </div>
+  </div>
+  <div *ngIf='error'>
+    <div class="box_alerts">
+      <img src="../../../assets/icon/error.svg">
+      <h1>Erro</h1> 
+      <p>Algo deu errado. Tente novamente ou se o problema persistir, entre em contato com o suporte.</p>
+      <hr width="90%" color="#ddd">
+      <button style="background-color: #FF623D; margin-top: 1rem;" (click)="CloseBox()">Ok</button>
+    </div>
+  </div>
+</div>
+
+<ion-content [ngClass]="(isLoad==true)?'mask':'no-mask'">
   <ion-grid>
     <ion-row>
       <ion-item style="--background: transparent; margin-left: -0.5rem;" lines='none' (click)='home()'>
@@ -10,5 +43,117 @@
         <ion-label>Carteira</ion-label>
       </ion-item>
     </ion-row>
+
+    <ion-row style="margin-top: 1.5rem;">
+      <ion-label class="my-cards">Seus cartões</ion-label> <!-- (click)="SaveCard(4242424242424242, 05, 2025, 123)" -->
+      <div class="add-card" (click)="addNewCard()">
+        <ion-icon name="add-outline"></ion-icon>
+      </div>
+    </ion-row>
+
+    <ion-row *ngIf="!cards" style="margin-top: 2rem;">
+      <div *ngIf="!newcard" class="new-card">
+        <p>Você não tem nenhum cartão cadastrado!</p>
+      </div>
+      <div *ngIf="newcard" class="card-bounding">
+        <div *ngIf="newcard" class="card-bounding">
+          <ion-label class="datacardTitle">Dados do cartão</ion-label>
+          <div class="card-container">
+            <!--- ".card-type" is a sprite used as a background image with associated classes for the major card types, providing x-y coordinates for the sprite --->
+            <div class="card-type"></div>
+            <input placeholder="0000 0000 0000 0000" onkeyup="$cc.validate(event)" [(ngModel)]="cardNumber" name="cardNumber" maxlength="19"/>
+            <!-- The checkmark ".card-valid" used is a custom font from icomoon.io --->
+            <div class="card-valid"></div>
+          </div>
+          <div class="card-details clearfix">
+            <div class="expiration">
+              <input style="border-radius: 0px 0px 0px 6px; border-top: none;" onkeyup="$cc.expiry.call(this,event)" maxlength="5" [(ngModel)]="expiryMonthYear" name="expiryMonthYear" placeholder="MM / AA" />
+            </div>
+            <div class="cvv">
+              <!-- <input /> -->
+              <ion-input style="border-radius: 0px 0px 6px 0px; border-top: none; text-align: center;" [(ngModel)]="cardCVV" name="cardCVV" placeholder="CVC "><ion-icon name="card" style="color: #B7B7B7; float: left; left: 0.5rem; position: absolute; width: 22px; height: 22px;"></ion-icon></ion-input>         
+            </div>
+          </div>
+          <aside style="margin-top: -0.5rem;">Nome do cartão:</aside>
+          <div class="card-name-card"> 
+            <input type="text" [(ngModel)]="nameCard" name="nameCard"/>
+          </div>
+        </div>
+        <div class="btns-finish">
+           <ion-item class="btn-cancel" lines="none" (click)="cancelNewCard()">
+             <ion-label>Cancelar</ion-label>
+           </ion-item>
+           <ion-item class="btn-save" lines="none" (click)="SaveCard(cardNumber,expiryMonthYear, cardCVV, nameCard)">
+            <ion-label>Salvar</ion-label>
+          </ion-item>
+        </div>
+      </div>
+    </ion-row>
+    
+    <div *ngIf="cards" style="margin-top: 1.5rem;">
+      <!-- Cards -->
+      <div class="scrolling-wrapper" >
+       <div *ngFor="let card of AllCards" class="card" style="margin-left: 1rem;">
+        <div class="info-mycard">
+          <p class="name">{{card.name}} <br>(Cartão de crédito)</p>
+          <p class="number">{{card.lastNumbers}}</p>
+          <h1 class="expiry">••/••••<span class="cvv">CVV: •••</span></h1>
+        </div>
+        <div class="options">
+          <ion-icon name="ellipsis-vertical-circle"></ion-icon>
+         </div>
+         <div class="flags">
+            <img *ngIf="card.brand == 'MASTER'" src="../../../assets/icon/credit-card/master.png">  <!-- master -->
+            <img *ngIf="card.brand == 'MAESTRO'" src="../../../assets/icon/credit-card/maestro.png">  <!-- maestro -->
+            <img *ngIf="card.brand == 'VISA'" src="../../../assets/icon/credit-card/visa.png">  <!-- visa -->
+            <img *ngIf="card.brand == 'DINERS'" src="../../../assets/icon/credit-card/diners.png">  <!-- diners -->
+            <img *ngIf="card.brand == 'EXPRESS'" src="../../../assets/icon/credit-card/American-Express.png">  <!-- express -->
+         </div>             
+       </div>
+     </div>
+    </div>
+    <ion-row>
+      <ion-item class="info" style="--background: transparent;" lines="none">
+        <p>Para adicionar um novo cartão de crédito/débito como método de pagamento.
+          Aperte o botão + acima, e digite as credênciais do seu cartão, depois selecione
+          o cartão que deseja utilizar para futuras viagens, caso você tenha mais de um
+          cartão cadastrado.</p>
+      </ion-item>
+    </ion-row>
+    <ion-row style="margin-top: 2rem;">
+      <ion-label class="payments">Pagamentos</ion-label>
+    </ion-row>
+    
   </ion-grid>
 </ion-content>
+
+ <script>
+    Iugu.setAccountID("13E99F0E22E542C58BA9FC087CB6F87B");
+    Iugu.setTestMode(true);
+    //Iugu.setup();
+    jQuery(function($) {
+      $('#payment-form').submit(function(evt) {
+          var form = $(this);
+          var tokenResponseHandler = function(data) {
+              
+              if (data.errors) {
+                  alert("Erro salvando cartão: " + JSON.stringify(data.errors));
+              } else {
+                  $("#token").val( data.id );
+                  form.get(0).submit();
+              }
+              
+              // Seu código para continuar a submissão
+              // Ex: form.submit();
+          }
+          
+          Iugu.createPaymentToken(this, tokenResponseHandler);
+          return false;
+      });
+    });
+  </script>
+  <script type="text/javascript" src="https://js.iugu.com/v2"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/formatter.js/0.1.5/formatter.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>

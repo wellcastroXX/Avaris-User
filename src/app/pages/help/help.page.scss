@@ -9,3 +9,20 @@ ion-content{
     ion-icon{ width: 18px; height: 18px; color: #031D44; }
     .sub{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; }
 }
+
+.topic{
+  width: 95%; height: 45px; border-radius: 10px; background-color: #fff; z-index: 1000;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; margin: auto; display: block;
+  .pergunta{ width: 100%;
+    font-family: 'Coco Sharp'; font-weight: 700; font-size: 12pt; color: #031D44; margin-left: 0.5rem; margin-top: 0.8rem;
+  }
+  ion-icon{
+      float: right; right: 0rem; margin-right: 1rem; margin-top: 0.2rem; color: #031D44;
+  }
+  .topic-desc{ margin-top:1rem;
+    background-color: #fff; width: 100%; border-radius: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .resposta{
+        font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010; margin-left: 0.5rem;
+    }
+  }
+}

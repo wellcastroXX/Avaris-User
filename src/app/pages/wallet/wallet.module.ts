@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { WalletPageRoutingModule } from './wallet-routing.module';
-
+import { LottieAnimationViewModule } from 'ng-lottie';
 import { WalletPage } from './wallet.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { WalletPage } from './wallet.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    WalletPageRoutingModule
+    WalletPageRoutingModule,
+    LottieAnimationViewModule.forRoot(),
   ],
   declarations: [WalletPage]
 })

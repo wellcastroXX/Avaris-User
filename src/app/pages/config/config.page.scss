@@ -2,10 +2,16 @@ ion-content{
     --background: #fff;
 }
 
-
 .item-title{
     --background: transparent; margin-left: -0.5rem;
     ion-label{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 22pt; color: #031D44;}
     ion-icon{ width: 18px; height: 18px; color: #031D44; }
     .sub{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; }
+}
+
+.option{
+  width: 95%; margin-left: 0.5rem; margin-top: 0rem; --background: transparent; border: none; box-shadow: none;
+  ion-label{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 13pt; color: #031D44; margin-left: 1rem; } 
+  img{ float: left; left: 0; width: 23px; height: 23px; margin-left: 0.5rem;}
+  ion-icon{ float: right; right: 0; width: 20px; height: 20px; color: #031D44; }
 }

@@ -26,7 +26,7 @@ export class ChatPage implements OnInit {
   }
   getDataChats() {
     let allUsers = [];
-    firebase.firestore().collection('motoristas').onSnapshot(snap => {
+    firebase.firestore().collection('usuarios').onSnapshot(snap => {
       snap.forEach(child => {
         firebase.firestore().collection('chats').doc(this.currentData.uid).collection(child.data()['ID']).onSnapshot(snap => {
           if (!snap.empty) {

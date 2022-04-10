@@ -1,0 +1,191 @@
+<div *ngIf='isLoad' class="load">
+    <div *ngIf='loading'>
+      <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+    </div>
+    
+    <div *ngIf='warning'>
+      <div class="box_alerts">
+        <img src="../../../assets/icon/warning.svg">
+        <h1>Atenção</h1> 
+        <p>Dados incorretos, revise seus dados e tente novamente.</p>
+        <hr width="90%" color="#ddd">
+        <button style="background-color: #FFB703; margin-top: 2rem;" (click)="CloseBox()">Ok</button>
+      </div>
+    </div>
+    <div *ngIf='error'>
+      <div class="box_alerts">
+        <img src="../../../assets/icon/error.svg">
+        <h1>Erro</h1> 
+        <p>Algo deu errado. Tente novamente ou se o problema persistir, entre em contato com o suporte.</p>
+        <hr width="90%" color="#ddd">
+        <button style="background-color: #FF623D; margin-top: 1rem;" (click)="CloseBox()">Ok</button>
+      </div>
+    </div>
+</div>
+
+<ion-content [ngClass]="(isLoad==true)?'mask':'no-mask'" *ngIf="!premium">
+  <ion-grid class="avarisPremium" *ngIf="!banner" style="height: 100%; width: 100%;" no-padding>
+    <div *ngIf="terms" style="position: absolute; bottom: 0; left: 0; right: 0; width: 100%; height: 100%;">
+      <ion-item style="margin-top: 0.5rem; margin-left: -0.5rem; --background: #fff; position: absolute; top: 0; left: 0; right: 0;" lines="none">
+        <ion-icon name="close-outline" (click)="closeTerms()"></ion-icon>
+      </ion-item>
+      <iframe src="https://firebasestorage.googleapis.com/v0/b/avaris-465f8.appspot.com/o/politica.pdf?alt=media&token=991ee825-02a1-48ed-b2b6-ff4a90bb6d50" 
+      width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+    </div>
+    <div *ngIf="!terms">
+      <ion-item style="margin-top: 0.5rem; margin-left: -0.5rem; --background: transparent;" lines="none">
+        <ion-icon name="close-outline" (click)="closePopUp()"></ion-icon>
+      </ion-item>
+      <ion-row class="car_marg">
+        <img class="car-premium" src="../../../assets/img/car-Premium.svg">  
+        <h1 class="title-premium">Pague metade pela suas corridas</h1>
+      </ion-row>
+    
+      <ion-row>
+        <!-- <ion-label class="benef-text">Benefícios:</ion-label> -->
+      </ion-row>
+      <ion-row style="margin-top: 2.5rem;">
+        <ion-col size="4">
+          <div class="benef-circle">
+           <img src="../../../assets/icon/desconto.png">
+           <p>50% OFF nas corridas<br>do mês</p>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="benef-circle">
+            <img src="../../../assets/icon/smartphone.png">
+            <p>Concorra a um<br> iPhone 13</p>
+          </div>
+        </ion-col>
+        <!-- <ion-col size="3">
+          <div class="benef-circle">
+            <img src="../../../assets/icon/seat-belt.png">
+            <p>Viage com segurança</p>
+          </div>
+        </ion-col> -->
+        <ion-col size="4">
+          <div class="benef-circle">
+            <img src="../../../assets/icon/calendar.png">
+            <p>Cancele quando quiser</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-label class="price">R$ 4,99 /Mês<span>R$ 24,99</span></ion-label>
+      </ion-row>
+      <button class="btn-subscribe" (click)="Terms()">
+        Seja Premium
+      </button>
+    </div>
+
+  </ion-grid>
+  <ion-grid *ngIf="banner">
+    <ion-row class="back-arrow">
+      <ion-icon name="arrow-back-outline" (click)="backSubscribe()"></ion-icon>
+    </ion-row>
+
+    <ion-row>
+      <img class="logo" src="../../../assets/img/LOGO-ICON.png">  
+    </ion-row>
+    <ion-row>
+      <ion-label class="title_subscribe">Assinar Avaris Premium</ion-label>
+      <h1 class="preco_subscribe">R$ 4,99 <span>por mês</span></h1>
+      <p class="description">DESCONTO DE 50% EM SUAS CORRIDAS</p>
+    </ion-row>
+    <hr style="height: 1px; background-color: #ddd; color: #ddd; width: 90%; margin-top: 2.5rem;">
+    <div *ngIf="!noCards" class="card-bounding">
+
+
+      <ion-label class="datacardTitle">Dados do cartão</ion-label>
+      <div class="card-container">
+        <!--- ".card-type" is a sprite used as a background image with associated classes for the major card types, providing x-y coordinates for the sprite --->
+        <div class="card-type"></div>
+        <input placeholder="0000 0000 0000 0000" onkeyup="$cc.validate(event)" [(ngModel)]="cardNumber" name="cardNumber" maxlength="19"/>
+        <!-- The checkmark ".card-valid" used is a custom font from icomoon.io --->
+        <div class="card-valid"></div>
+      </div>
+      <div class="card-details clearfix">
+        <div class="expiration">
+          <input style="border-radius: 0px 0px 0px 6px; border-top: none;" onkeyup="$cc.expiry.call(this,event)" maxlength="5" [(ngModel)]="expiryMonthYear" name="expiryMonthYear" placeholder="MM / AA" />
+        </div>
+        <div class="cvv">
+          <!-- <input /> -->
+          <ion-input style="border-radius: 0px 0px 6px 0px; border-top: none; text-align: center;" [(ngModel)]="cardCVV" name="cardCVV" placeholder="CVC "><ion-icon name="card" style="color: #B7B7B7; float: left; left: 0.5rem; position: absolute; width: 22px; height: 22px;"></ion-icon></ion-input>         
+        </div>
+      </div>
+      <aside style="margin-top: -0.5rem;">Nome do cartão:</aside>
+      <div class="card-name-card"> 
+        <input type="text" [(ngModel)]="nameCard" name="nameCard"/>
+      </div>
+      <ion-item lines="none" class="item_checkbox-terms">
+        <ion-checkbox color="primary" checked="true" disabled></ion-checkbox>
+        <p>Eu aceito todos os termos de uso e serviço</p>
+      </ion-item>
+       
+      <div>
+        <button type="button" class="button" onclick="this.classList.toggle('button--loading')" (click)="SaveCard(cardNumber,expiryMonthYear, cardCVV, nameCard)">
+          <span class="button__text">Assinar</span>
+        </button>
+        <p class="terms_description">Ao confirmar sua subscrição, você permite que Avaris cobre seu cartão por esse pagamento e pagamentos futuros de acordo com as condições.</p>
+      </div>
+
+
+    </div>
+  </ion-grid>
+</ion-content>
+
+<ion-content [ngClass]="(isLoad==true)?'mask':'no-mask'" *ngIf="premium">
+  <div class="success_background" *ngIf='success'>
+    <ion-label class="title_congrat">Parabéns</ion-label>
+    <div class="animation_confetti slide-in-bottom">
+     <lottie-animation-view [options]="lottieConfig" [width]="400" [height]="400"></lottie-animation-view>
+    </div>
+    <img class="success_medal slide-in-bottom" src="../../../assets/img/medal.svg">
+ 
+    <ion-row>
+      <h1 class="p_t slide-in-bottom2">AVARIS PREMIUM</h1>
+      <p class="p_st slide-in-bottom2">Nova conquista!</p>
+    </ion-row>
+    <ion-row style="margin-top: 2rem;">
+      <ion-item lines="none" class="item_news slide-in-bottom3">
+        <ion-icon name="star"></ion-icon>
+        <ion-label>Uso ilimitado desbloqueado<br>para o mês inteiro</ion-label>
+      </ion-item>
+     </ion-row>
+     <ion-row>
+       <ion-item lines="none" class="item_news slide-in-bottom3">
+         <ion-icon name="star"></ion-icon>
+         <ion-label>50% em Corridas</ion-label>
+       </ion-item>
+     </ion-row>
+     <ion-row>
+       <ion-item lines="none" class="item_news slide-in-bottom3">
+         <ion-icon name="star"></ion-icon>
+         <ion-label>Nova função de uso desbloqueada</ion-label>
+       </ion-item>
+     </ion-row>
+   
+     <ion-row>
+       <ion-label class="btn_right slide-in-bottom4" (click)="finish()">Pronto!</ion-label>
+     </ion-row>
+ </div>
+</ion-content>
+ <!-- <ngx-stripe-card class="stripe"[options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>  
+ <button type="submit" (click)="checkvalues()"> Start Subscription</button> -->
+
+<!-- alternative 
+  <ion-row style="height: 60px; background-color: #fff; position: absolute; top: 0; width: 100%;">
+        <ion-col size="6" (click)="closeTerms()">
+          <ion-item style="--background: #fff; font-family: 'Coco Sharp'; font-weight: 500; margin-top: 0rem;" lines="none">
+            <ion-icon name="close-outline" style="color: #D53624;" ></ion-icon>
+            <ion-label style="margin-left: 1rem;">Não aceito</ion-label>           
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item style="--background: #fff; font-family: 'Coco Sharp'; font-weight: 500; margin-top: 0rem;" lines="none">
+            <ion-icon name="checkmark-outline" style="color: #00896F"></ion-icon>
+            <ion-label style="margin-left: 1rem;">Aceito</ion-label>           
+          </ion-item>
+        </ion-col>
+      </ion-row>
+ -->

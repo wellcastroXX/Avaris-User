@@ -1,3 +1,7 @@
+ion-content{
+  --background: transparent;
+}
+
 .title{
     font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 12pt; color: #101010; text-align: center;
     position: absolute; left: 0; right: 0; 
@@ -5,20 +9,26 @@
 
 .circle-progress{ background-color: transparent;  border-radius: 50%; width: 76px; height: 76px; 
   border: 2px #031D44 solid; margin-left: 1.5rem; margin-top: 3.5rem; }
+.circle-icon{
+  background-color: #031D44; border-radius: 50%; width: 66px; height: 66px; margin-top: 0.2rem; margin-left: 0.2rem;
+  img{ margin-top: 1rem; margin-left: 1.1rem; border-radius: 20%; height: 32px; height: 32px; }
+}
 .circle-pic{
-  background-color: #F4F6F8; border-radius: 50%; width: 66px; height: 66px; margin-top: 0.2rem; margin-left: 0.2rem;
-  img{ margin-top: 1rem; margin-left: 1.1rem; border-radius: 50%; height: 32px; height: 32px; }
+  background-color: #031D44; border-radius: 50%; width: 66px; height: 66px; margin-top: 0.2rem; margin-left: 0.2rem;
+  img{ border-radius: 50%; height: 66px; height: 66px; }
 }
 .title-name{ white-space: normal; margin-left: 1.5rem; 
-  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18pt; color: #101010; }
+  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 20pt; color: #101010; 
+  span{ font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 18pt; color: #101010;  }
+}
 
 .box-franquia{ 
-  float: right; right: 0; width: 140px; height: 70px; margin-top: -8rem;
+  float: right; right: 0; width: 140px; height: 70px; margin-top: -10rem;
   .details{ margin-top: -5rem; text-align: center;
     h1{ font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 8pt; color: #101010; }
   }
 }
-.bar-line{ height: 70px; width: 1px; background-color: whitesmoke; border-radius: 10px; }
+.bar-line{ height: 70px; width: 1px; background-color: rgb(231, 231, 231); border-radius: 10px; }
 
 .box-icon-1{
   width: 44px; height: 44px; border-radius: 10px;background-color: #031D44; margin-left: 0.2rem;

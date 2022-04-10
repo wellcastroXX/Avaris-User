@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
+import { MeusDadosComponent } from './meus-dados/meus-dados.component';
+import { LottieAnimationViewModule } from 'ng-lottie';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    LottieAnimationViewModule.forRoot(),
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage, MeusDadosComponent]
 })
 export class ProfilePageModule {}

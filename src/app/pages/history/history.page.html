@@ -1,6 +1,6 @@
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row style="margin-top: 1.5rem;">
       <ion-item style="--background: transparent; margin-left: -0.5rem;" lines='none' (click)='home()'>
         <ion-icon name="arrow-back-outline" style="width: 18px; height: 18px; color: #031D44;"></ion-icon>
       </ion-item>
@@ -10,5 +10,103 @@
         <ion-label>Histórico</ion-label>
       </ion-item>
     </ion-row>
+
+     <!-- Calendar - start -->
+  <ion-row class="row-buttons">
+    <ion-icon name="chevron-back-outline" (click)="subDay()"></ion-icon>
+    <div class="month">
+      <p>{{actualMonth}}</p>
+    </div>
+    <ion-icon name="chevron-forward-outline" (click)="plusDay()"></ion-icon>
+  </ion-row>
+  <div class="calendar">
+    <div class="semana" >
+      <div *ngFor="let dia of semana" [ngClass]="dia.diaNoMes == diaAtual ? 'dia-selecionado dia' : 'dia-comum dia'">
+        <p class="day">{{dia.diaNoMes}}</p>
+        <p class="day-comum">{{dia.diaNoMes}}</p>
+        <p class="day-name">{{dia.extenso}}</p>
+      </div>
+    </div>
+  </div>
+  
+  <ion-row style="margin-top: 2rem;">
+    <ion-label class="today-event">Hoje <span>corridas</span></ion-label>
+  </ion-row>
+ 
+  <div class="timeline-wrapper"> 
+      <ul class="StepProgress" *ngIf="travels > 0">
+           <li class="StepProgress-item is-done">
+               <div class="bold time">10:00</div> 
+               <div class="box-event-done">
+                 <ion-item lines="none" class="item-title">
+                   <ion-label slot="start" class="l1">Corrida</ion-label>
+                   <ion-label slot="end" class="l2">#Avaris</ion-label>
+                 </ion-item>
+                 <ion-item lines="none" class="item-sub">
+                  <p class="title">Destino:</p>
+                 </ion-item>
+                 <ion-item lines="none" class="item-info">
+                  <ion-label slot="start" class="l1">Motorista:</ion-label>
+                  <ion-icon slot="end" name="car-sport-outline"></ion-icon>
+                 </ion-item>
+               </div>
+           </li>
+           
+      </ul>
+       <!-- <li class="StepProgress-item is-done">
+        <div class="bold time">11:00</div> 
+        <div class="box-event-done">
+          <ion-item lines="none" class="item-title">
+            <ion-label slot="start" class="l1">Corrida</ion-label>
+            <ion-label slot="end" class="l2">#Avaris</ion-label>
+          </ion-item>
+          <ion-item lines="none" class="item-sub">
+           <p class="title">Destino:</p>
+          </ion-item>
+          <ion-item lines="none" class="item-info">
+           <ion-label slot="start" class="l1">Motorista:</ion-label>
+           <ion-icon slot="end" name="car-sport-outline"></ion-icon>
+          </ion-item>
+        </div>
+        </li>
+        <li class="StepProgress-item current">
+            <div class="bold time">12:00</div> 
+            <div class="box-event-done">
+              <ion-item lines="none" class="item-title">
+                <ion-label slot="start" class="l1">Corrida</ion-label>
+                <ion-label slot="end" class="l2">#Avaris</ion-label>
+              </ion-item>
+              <ion-item lines="none" class="item-sub">
+               <p class="title">Destino:</p>
+              </ion-item>
+              <ion-item lines="none" class="item-info">
+               <ion-label slot="start" class="l1">Motorista:</ion-label>
+               <ion-icon slot="end" name="car-sport-outline"></ion-icon>
+              </ion-item>
+            </div>
+        </li>
+        <li class="StepProgress-item">
+            <div class="bold time">13:00</div> 
+            <div class="box-event-done">
+              <ion-item lines="none" class="item-title">
+                <ion-label slot="start" class="l1">Corrida</ion-label>
+                <ion-label slot="end" class="l2">#Avaris</ion-label>
+              </ion-item>
+              <ion-item lines="none" class="item-sub">
+               <p class="title">Destino:</p>
+              </ion-item>
+              <ion-item lines="none" class="item-info">
+               <ion-label slot="start" class="l1">Motorista:</ion-label>
+               <ion-icon slot="end" name="car-sport-outline"></ion-icon>
+              </ion-item>
+            </div>
+        </li> -->
+  </div>
+  <ion-row class="empty-travel">
+    <ion-label>Você não fez nenhuma viagem hoje!</ion-label>
+  </ion-row>
+  <!-- Calendar - end -->
+
+
   </ion-grid>
 </ion-content>

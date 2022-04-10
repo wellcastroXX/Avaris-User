@@ -7,7 +7,7 @@
   <ion-grid>
     <ion-row class="logo">
       <ion-icon (click)='back()' name="chevron-back-outline"></ion-icon>
-      <img src="../../../assets/img/logo-preto.png">
+      <img src="../assets/img/LOGO.svg">
     </ion-row>
   
     <ion-row>
@@ -21,9 +21,19 @@
           </ion-item> 
       
           <ion-item class="input-item" lines="none">
-            <ion-input type="password" #password placeholder='Senha' required></ion-input>
+            <div class="form-group">  
+              <div class="col-md-6">  
+                <ion-input class="password" type="password" class="form-control" id="password" name="password" placeholder="Senha" 
+                [(ngModel)]="account.password" #password="ngModel" minlength="5" maxlength="50" required></ion-input>             
+              </div>  
+            </div> 
+            <!-- <ion-input type="password" #password placeholder='Senha' required></ion-input> -->
           </ion-item>
-
+          <ion-row>
+            <app-password-strength-bar [passwordToCheck]="account.password" [barLabel]="barLabel" style="margin-left: 1rem;"> 
+            </app-password-strength-bar> 
+          </ion-row>
+     
           <ion-item class="input-item" lines="none">
             <ion-input type="password" #confirmpassword placeholder='Confirmar senha' required></ion-input>
           </ion-item>
@@ -32,9 +42,10 @@
             <ion-col style="height: 100%;"> 
               <ion-item lines='none' class="item-checkbox">
                 <ion-label>Aceitar a <span style="text-decoration: underline;">política</span> e os <span style="text-decoration: underline;">termos de uso e serviço</span></ion-label>
-                <ion-checkbox slot="start" mode="md" color="primary"></ion-checkbox>
+                <ion-checkbox slot="start" mode="md" color="primary" (click)="checkTerms($event)"></ion-checkbox>
               </ion-item>
-              <button class="btn-register" type="submit" (click)="signUp(email, password)" expand="block">Cadastrar-se</button>
+              <button *ngIf="!btn_allowed" class="btn-register-disabled" type="submit" expand="block">Cadastrar-se</button>
+              <button *ngIf="btn_allowed" class="btn-register" type="submit" (click)="signUp(email, password)" expand="block">Cadastrar-se</button>
             </ion-col>
           </ion-row>
         </form>

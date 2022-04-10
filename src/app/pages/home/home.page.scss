@@ -7,8 +7,18 @@ ion-content{
 .welcome{ font-family: 'Coco Sharp'; font-weight: 400; font-size: 10pt; margin-left: 1rem; color: #050401; }
 .name{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 18pt; margin-left: 1rem; margin-top: -0.7rem; color: #050401; }
 .head-img{ float: right; right: 0; margin-right: 1rem; position: absolute;}
-.border-profile{ background-color: #031D44; width: 44px; height: 44px; border-radius: 50%; margin-top: 1.2rem;
+.border-profile{ background-color: #031D44; width: 44px; height: 44px; border-radius: 50%; margin-top: 1.2rem; box-shadow: #031D4440 0px 5px 15px;
   img{ height: 18px; height: 18px; position: relative; margin: auto; display: block; left: 0; right: 0; top: 0.8rem; }
+}
+.border-profile-withPic{ 
+  background-color: #ddd; width: 44px; height: 44px; border-radius: 50%; position: relative; margin-top: 1.2rem; overflow: hidden; 
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; border: 2px solid #031D44; display: flex; justify-content: center; align-items: center;
+  img{  width: 100%;
+    height: 100%;
+    background-color: #ddd; /* fallback color */
+    background-image: url();
+    background-position: center;
+    background-size: cover;}
 }
 //nav-menu-options
 .navBarrow{ margin-top: -2.3rem;
@@ -48,7 +58,7 @@ ion-content{
 // 
 
 .map-box{
-  position:absolute; bottom: 0; width: 100%; height: 87%; margin: auto; display: block; left: 0; right: 0;
+  position:absolute; bottom: 0; width: 100%; height: 88.5%; margin: auto; display: block; left: 0; right: 0;
   background-color: transparent; border-radius: 40px 40px 0px 0px; z-index: 900;
 }
 
@@ -75,7 +85,9 @@ ion-content{
   h1{ display: none; }
 }
 //Controller menu
-.back-btn{ background-color: transparent; z-index: 903; margin-top: 1rem; margin-left: 0.5rem; width: 20px; height: 20px; ion-icon{ width: 20px; height: 20px; color: #031D44; } }
+.back-btn{ background-color: transparent; z-index: 903; margin-top: 0rem; width: 20px; height: 20px;
+  ion-icon{ width: 20px; height: 20px; color: #031D44; float: left; left: 0; } 
+}
 .controller{
   height: 128px; width: 95%; border-radius: 25px; background-color: #031D44; margin: auto; display: block; margin-top: 0.8rem; position: absolute; left: 0; right: 0; z-index: 902;
   .item-from{ --background: transparent; width: 100%; height: 64px;
@@ -111,27 +123,54 @@ ion-content{
   p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 8pt; width: 100%; text-align: center; margin-top: -0.1rem; color: #031D44; }
 }
 
+.info_ride{
+  background: rgba( 255, 255, 255, 0.35 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 6px );
+  -webkit-backdrop-filter: blur( 6px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  left: 0; right: 0; width: 100%; position: absolute; bottom: 0; height: 200px; margin: auto; display: block; border-radius: 40px 40px 0px 0px; z-index: 1003;
+}
+
 .request-car{
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px; background-color: #FFF;
+  /* OLD SETTING == box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px; background-color: #FFF; */
+  background: rgba( 255, 255, 255, 0.35 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 6px );
+  -webkit-backdrop-filter: blur( 6px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
   left: 0; right: 0; width: 100%; position: absolute; bottom: 0; height: 200px; margin: auto; display: block; border-radius: 40px 40px 0px 0px; z-index: 903;
-  .box-car{ background-color: #031D44; width: 85%; height: 75px; border-radius: 20px; margin: auto; display: block;
-    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 80%; margin-top: -1rem; } 
+  .box-car{ background-color: #fff; border: 1px solid #031D44; width: 85%; height: 75px; border-radius: 20px; margin: auto; display: block;
+    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 75%; margin-top: -1rem; } 
   }
   .box-car-selected{ background-color: #fff; border: 1px solid #031D44; width: 85%; height: 75px; border-radius: 20px; margin: auto; display: block;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 80%; margin-top: -1rem; } 
+    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 75%; margin-top: -1rem; } 
   }
-  .box-car-subs{ background-color: #dd3a3a; width: 85%; height: 75px; border-radius: 20px; margin: auto; display: block;
-    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 80%; margin-top: -1rem; } 
+  .box-car-subs-disabled{
+    background-color: #DDDDDD; width: 85%; height: 70px; border-radius: 20px; margin: auto; display: block;
+    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 75%; margin-top: 0rem; opacity: 0.7;} 
+  }
+  .box-car-subs{ background-color: #031D44; width: 95%; height: 70px; border-radius: 20px; margin: auto; display: block;
+    .icon{ position: absolute; float: right; right: 0; width: 26%; margin-top: 1rem; margin-right: 2rem; z-index: 1000;}
+    .premium{ font-family: 'Coco Sharp'; font-weight: 400; font-size: 10pt; position: absolute; float: right; right: 0; margin-right: 3rem; margin-top: 3rem; color: #fff; }
+    .car{ position: absolute; float: left; left: 0; margin-left: 0rem; width: 50%; margin-top: -0.5rem; z-index: 1000;} 
+    .discuntoff{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 35pt; color: #fff; opacity: 0.2; top: -2.4rem; position: absolute; float: right; right: 0; margin-right: 1.5rem; z-index: 999;}
   }
   .box-car-subs-selected{
-    background-color: #fff; border: 1px solid #dd3a3a; width: 85%; height: 75px; border-radius: 20px; margin: auto; display: block;
+    background-color: #fff; border: 1px solid #031D44; width: 85%; height: 70px; border-radius: 20px; margin: auto; display: block;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 80%; margin-top: -1rem; } 
+    img{ position: absolute; left: 0; right: 0; margin: auto; display: block; width: 35%; margin-top: 0rem; } 
   }
+  // 
   .category{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; text-align: center; margin: auto; display: block; color: #031D44; }
   .price{  font-family: 'Coco Sharp'; font-weight: 700; font-size: 10pt; text-align: center; margin-top: 0rem; color: #031D44;
-    span{font-family: 'Coco Sharp'; font-weight: 500; font-size: 8pt; text-align: center; margin-top: 0rem; color: #031D44; text-decoration: line-through;}  
+    span{font-family: 'Coco Sharp'; font-weight: 500; font-size: 8pt; text-align: center; margin-top: 0rem; color: #031D44; }  
+  }
+  .pricePremium{  font-family: 'Coco Sharp'; font-weight: 700; font-size: 14pt; text-align: center; margin-top: 0rem; color: #031D44;
+    span{font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; text-align: center; margin-top: -0.3rem; color: #8D8D8D; }  
   }
   h1{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 9pt; text-align: center; }
   .box-options{
@@ -139,24 +178,24 @@ ion-content{
     ion-label{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44;}
     ion-icon{ color: #031D44; height: 15px; width: 15px; }
   }
-  .bar-options{ background-color: #031d4479; height: 0.2px; width: 90%; margin: auto; display: block; margin-top: -1.8rem; }
+  .bar-options{ background-color: #031d4479; height: 0.2px; width: 90%; z-index: 100; margin: auto; display: block; margin-top: -0.5rem; }
   .confirm-request{ background-color: transparent;
-    width: 100%; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #031D44;
+    width: 100%; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 400; font-size: 11pt; text-align: center; color: #031D44;
     p{ margin-top: 1.2rem; }
   }
   .confirm-request-allowed{ background-color: #031D44; border-radius:  14px; width: 80%; height: 45px; bottom: 0.5rem; position: absolute; left: 0; right: 0;
-    width: 80%; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #fff;
+    width: 80%; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 400; font-size: 11pt; text-align: center; color: #fff;
     p{ margin-top: 0.8rem; }
   }
   .confirm-car{ background-color: #031D44; border-radius:  14px; width: 80%; height: 45px; bottom: 0.5rem; position: absolute; left: 0; right: 0;
-    width: 80%; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #fff;
+    width: 80%; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 400; font-size: 11pt; text-align: center; color: #fff;
     p{ margin-top: 0.8rem; }
   }
   .item-method-payment{
-    --background: transparent; margin-top: 0rem; width: 100%;
+    --background: transparent; margin-top: -1.5rem; width: 90%;
     ion-label{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #031D44; } 
-    ion-icon{ width: 18px; height: 18px; color:#031D44; margin-left: 0.5rem; }
-    .arrow{ float: right; right: 0; margin-right: 0.5rem; width: 14px; height: 14px; }
+    ion-icon{ width: 20px; height: 20px; color:#031D44; margin-left: 0.5rem; }
+    .arrow{ float: right; right: 0; margin-right: 1.5rem; width: 14px; height: 14px; }
   }
 }
 
@@ -221,14 +260,70 @@ ion-content{
   }
 }
 
-
-
-
-
-
-
-
-
+@media screen and (max-width: 380px){
+  .avarisPremium{
+    background-color: #fff;
+ }
+ .car-premium{
+   width: 60%; margin: auto; display: block; margin-top: 0rem; z-index: 100;
+ }
+ .title-premium{
+   font-family: 'Coco Sharp'; font-weight: 700; font-size: 16pt; text-align: center; color: #050401;
+ }
+ .badge-premium{
+   background-color: #031D44; width: 35%; height: 34px; margin: auto; display: block; margin-top: 0.5rem; border-radius: 20px;
+   p{font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; text-align: center; color: #fff; top: 0.4rem; margin: auto; display: block; position: relative;}
+ }
+ .benef-text{
+   font-family: 'Coco Sharp'; font-weight: 700; font-size: 11pt; text-align: center; margin: auto; display: block; margin-top: 0.5rem; color: #101010;
+ }
+ .benef-circle{
+    width: 50px; height: 50px; border-radius: 50%; background-color: #031d44dc; margin: auto; display: block;
+    img{ width: 32px; height: 32px; margin: auto; display: block; position: absolute; left: 0; right: 0; top: 0.8rem;}
+    p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; position: absolute; left: 0; right: 0; text-align: center; 
+     margin: auto; display: block; margin-top: 3.5rem; color: #101010; }
+ }
+ .btn-subscribe{
+    background-color: #031D44; width: 95%; height: 55px; margin: auto; display: block; text-align: center; margin-top: 6.5rem; /* position: absolute; bottom: 4.5rem; left: 0; right: 0; */
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #fff; border-radius: 10px;
+ }
+ .price-premium{
+   font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #031D44; margin-top: 4rem; position: absolute; left: 0; right: 0;
+   span{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 16pt; text-align: center; color: #031D44; }
+ }
+}
+@media screen and (min-width: 381px){
+  .avarisPremium{
+    background-color: #fff;
+ }
+ .car-premium{
+   width: 60%; margin: auto; display: block; margin-top: 1rem; z-index: 100;
+ }
+ .title-premium{
+   font-family: 'Coco Sharp'; font-weight: 700; font-size: 18pt; text-align: center; color: #050401;
+ }
+ .badge-premium{
+   background-color: #031D44; width:35%; height: 34px; margin: auto; display: block; margin-top: 1rem; border-radius: 20px;
+   p{font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; text-align: center; color: #fff; top: 0.4rem; margin: auto; display: block; position: relative;}
+ }
+ .benef-text{
+   font-family: 'Coco Sharp'; font-weight: 700; font-size: 11pt; text-align: center; margin: auto; display: block; margin-top: 1.5rem; color: #101010;
+ }
+ .benef-circle{
+    width: 50px; height: 50px; border-radius: 50%; background-color: #031d44dc; margin: auto; display: block;
+    img{ width: 32px; height: 32px; margin: auto; display: block; position: absolute; left: 0; right: 0; top: 0.8rem;}
+    p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; position: absolute; left: 0; right: 0; text-align: center; 
+     margin: auto; display: block; margin-top: 3.5rem; color: #101010; }
+ }
+ .btn-subscribe{
+    background-color: #031D44; width: 95%; height: 55px; margin: auto; display: block; text-align: center; position: absolute; bottom: 4rem; left: 0; right: 0;
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #fff; border-radius: 10px;
+ }
+ .price-premium{
+   font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center; color: #031D44; margin-top: 6rem; position: absolute; left: 0; right: 0;
+   span{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 16pt; text-align: center; color: #031D44; }
+ }
+}
 
 
 
@@ -256,6 +351,17 @@ ion-content{
   z-index: 999;
 }
 /////////// 
+
+.box_alerts{
+  width: 85%; height: 340px; position: absolute; top: 50%; transform: translateY(-65%); margin: auto; display: block; 
+  left: 0; right: 0; background-color: #fff; border-radius: 25px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  img{ margin: auto; display: block; width: 65%; margin-top: 1rem; }
+  h1{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 20pt; color: #101010; text-align: center; margin-top: 0.5rem;}
+  p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #101010; text-align: center; margin-top: 0.5rem; width: 90%; margin: auto; display: block;}
+  hr{ margin-top: 1rem; }
+  button{ margin: auto; display: block; width: 50%; height: 35px; border-radius: 20px; text-align: center; color: #fff; 
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt;}
+}
 
 .open-dev {
   background-color: transparent;
@@ -356,8 +462,8 @@ ion-content{
 /////
 ////
 .title-search-drive{
-  font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; text-align: center;
-   color: #031D44; margin: auto; display: block; margin-top: 1.5rem;
+  font-family: 'Coco Sharp'; font-weight: 400; font-size: 12pt; text-align: center;
+   color: #031D44; margin: auto; display: block; margin-top: 2.5rem;
 }
 
 .tracking-in-expand {
@@ -414,5 +520,213 @@ ion-content{
   100% {
     letter-spacing: -0.5em;
     opacity: 0;
+  }
+}
+
+.slide-in-top {
+	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+ @-webkit-keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+//////////
+/////////
+/////////
+
+.viewRide{
+  width: 100%; height: 95%; position: absolute; left: 0; right: 0; bottom: 0; background-color: #FFFFFF; z-index: 3000;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; border-radius: 25px 25px 0px 0px;
+  .top_modl{ margin: auto; display: block; background-color: #E5E5E5; width: 38px; height: 4px; border-radius: 30px; margin-top: 0.5rem; }
+  .x{ float: left; left: 0; width: 30px; height: 30px; color: #101010; margin-top: 0.5rem; }
+  .yourdriver{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 11pt; color: #031D44; }
+  .driver_pic{  
+    float: left; left: 0; width: 60px; height: 60px; border-radius: 12px; margin-left: 1rem; margin-top: 0.7rem;
+    img{ width: 60px; height: 60px; border-radius: 12px; }
+  }
+  .driver_icon{
+    float: left; left: 0; width: 60px; height: 60px; border-radius: 12px; margin-left: 1rem; margin-top: 0.7rem; background-color: #031D44;
+    img{ width: 32px; height: 32px; margin: auto; display: block; margin-top: 0.8rem;}
+  }
+  .info_driver{
+    .drivername{ font-family: 'Coco Sharp'; font-weight: 800; font-size: 13pt; color: #031D44; margin-left: 1rem; margin-top: 0.8rem; }
+    .loc{ display: flex; margin-left: 1rem; margin-top: -0.5rem; ion-icon{ width: 15px; height: 15px; color: #99A4AE; } p{ margin-left: 0.5rem; margin-top: 0rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #99A4AE;}}
+    .sta{ display: flex; margin-left: 1rem; margin-top: -0.7rem; ion-icon{ width: 15px; height: 15px; color: #FAB608;} p{ margin-left: 0.5rem; margin-top: 0rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #99A4AE;}}
+    .car{ float: right; right: 0; position: absolute; margin-top: -4.2rem; margin-right: 1rem;
+      img{ width: 60px; }
+      p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #99A4AE; margin-top: -0.5rem; }
+    }
+  }
+  .security_trip{ --background: transparent; height: 100%; width: 100%;
+    ion-icon{ width: 30px; height: 30px; color: #DADBDE; }
+    p{  font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #99A4AE; }
+  }
+  .viagem_{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 12pt; color: #031D44; float: left; left: 0; margin-left: 1.2rem; }
+  .col_chat{ width: 80%; height: 50px; border-radius: 12px; border: 1px solid #031D44;  margin: auto; display: block;
+    ion-icon{ width: 22px; height: 22px; margin: auto; display: block; margin-top: 0.5rem; color: #031D44; } }
+  .col_cancel{ width: 80%; height: 50px; border-radius: 12px; background-color: #DADBDE; margin: auto; display: block; 
+    ion-label{ font-family: 'Coco Sharp'; font-weight: 700; position: absolute; margin: auto; display: block; left: 0; right: 0;
+       font-size: 10pt; color: #101010; text-align: center; margin-top: 0.7rem; }}
+
+  .startNav{ background-color: #031D44; width: 95%; height: 55px; position: absolute; bottom: 2rem; left: 0; right: 0; margin: auto; display: block;
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; color: #FFFFFF; border-radius: 12px; 
+    img{ position: absolute; float: right; right: 0; width: 23px; margin-right: 1rem; margin-top: -0.2rem; }
+  }
+
+  .pulse-button {
+    box-shadow: 0 0 0 0 rgba(#5a99d4, .5);
+    -webkit-animation: pulse 1.5s infinite;
+            animation: pulse 1.5s infinite;
+  }
+  .pulse-button:hover {
+    -webkit-animation: none;
+            animation: none;
+  }
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-transform: scale(.9);
+    }
+    70% {
+      -webkit-transform: scale(1);
+      box-shadow: 0 0 0 50px rgba(#5a99d4, 0);
+    }
+      100% {
+        -webkit-transform: scale(.9);
+      box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      -webkit-transform: scale(.9);
+    }
+    70% {
+      -webkit-transform: scale(1);
+      box-shadow: 0 0 0 50px rgba(#5a99d4, 0);
+    }
+      100% {
+        -webkit-transform: scale(.9);
+      box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+    }
+  }
+
+  $SPACER_XS: 0.5rem;
+  $SPACER_SM: 0.75rem;
+  $SPACER: 1rem;
+  $SPACER_MD: 1.5rem;
+  $SPACER_LG: 2rem;
+  $BORDER_RADIUS: 3px;
+  $PROGRESS_HEIGHT: 600px;
+  $PROGRESS_LIST_HEIGHT: 132px;
+  $PROGRESS_COUNTER_WIDTH: 28px;
+  $LIST_ITEM_WIDTH: 100px;
+  $PROGRESS_BG: #2183DC;
+  $BODY_BG: #2183DC;
+  $ICON_COLOR: #F3597D;
+
+  .progress {
+    position: relative;
+    padding: 0 $SPACER 0 3.5rem;
+    margin: $SPACER_LG 0 0;
+    list-style: none;
+    float: left; left: 0; margin-left: -1rem; margin-top: 2.5rem;
+  }
+  
+  .progress__item {
+    position: relative;
+    min-height: $PROGRESS_LIST_HEIGHT;
+    counter-increment: list;
+    padding-left: $SPACER_XS;
+    &:before {
+      content: "";
+      position: absolute;
+      left: -1.6rem;
+      top: 27px;
+      height: 65%;
+      width: 1px;
+      border-left: 2px dashed #2183DC;
+    }
+    &:after {
+      content: counter(list);
+      position: absolute;
+      top: 0;
+      left: -2.5rem;
+      width: $PROGRESS_COUNTER_WIDTH;
+      height: $PROGRESS_COUNTER_WIDTH;
+      border-radius:10px;
+      background: transparent;
+      color: #2183DC;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 2rem;
+      text-align: center;
+      //border: 1px solid #2183DC;
+    }
+    //Hide border for Last Step
+    &:last-child {
+      &:before {
+        border: none;
+      }
+    }
+    //Completed
+    &.progress__item--completed {
+      img{ width: 16px; height: 16px; margin-left: -2.7rem; margin-top: 0.4rem; position: absolute; z-index: 1000; }
+      opacity: 1;
+      color: #2183DC;
+      &:after {
+        content: "\2713";
+        font-weight: 400;
+        background: #2183DC;
+        color: #2183DC;
+      }
+    }
+    //Active
+    &.progress__item--active {
+      img{ width: 16px; height: 16px; margin-left: -2.6rem; margin-top: 0.4rem; position: absolute; z-index: 1000; }
+      &:after {
+        background: #031D44;
+        color: #031D44;
+      }
+    }
+  }
+  
+  .progress__title {
+    padding: 0.2rem 0 $SPACER_XS;
+    margin: 0;
+    font-family: 'Coco Sharp'; font-weight: 700; font-size: 11pt; color: #031D44; margin-top: -1rem;
+  }
+  .progress__info {
+    font-size: 13px;
+  }
+
+  .progress__subtitle1{
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #A1ABB4; float: right; right: 0.5rem; margin-top: -4.6rem; position: absolute;
+  }
+  .progress__subtitle2{
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #A1ABB4; float: right; right: 0.5rem; margin-top: 2.8rem; position: absolute
   }
 }

@@ -4,29 +4,34 @@
 
 <ion-content [ngClass]="(isLoad==true)?'mask':'no-mask'">
   <ion-grid style="height: 100%;"> 
-    <ion-row>
+    <ion-row style="margin-top: 1.5rem;">
       <ion-item style="--background: transparent; margin-left: -0.5rem;" lines='none' (click)='home()'>
         <ion-icon name="arrow-back-outline" style="width: 18px; height: 18px; color: #031D44;"></ion-icon>
       </ion-item>
     </ion-row>
     <div>
       <div class="circle-progress">
-        <div class="circle-pic">
-          <img src="../../../assets/icon/icon-person2.png">
+        <div class="circle-icon" *ngIf="!PHOTO">
+          <img src="../../../assets/icon/user-regular-profile.svg">
         </div>
-      </div>
-      <h1 class="title-name">{{profileUser.nome}} {{profileUser.sobrenome}}</h1>
+        <div class="circle-pic" *ngIf="PHOTO">
+          <img src="{{myPhoto}}">
+        </div>
+      </div> 
+      <h1 class="title-name">{{profileUser.nome}}<br><span>{{profileUser.sobrenome}}</span></h1>
     </div>
     <div class="box-franquia">
       <div class="bar-line"></div>
       <div class="details">
         <h1>Meu Rank</h1>
-  
+        <p class="rank-value" *ngIf="nota != null">
+          {{nota}}
+        </p>
       </div>
     </div>
 
     <ion-row style="margin-top: 3rem;">
-      <ion-item lines='none' class="item-menu">
+      <ion-item lines='none' class="item-menu" (click)="meusDados()">
         <div class="box-icon-1">
           <img class="icon-svg" src="../../../assets/icon/user-regular.svg" >
         </div>
@@ -35,7 +40,7 @@
       </ion-item>
     </ion-row>
     <ion-row>
-      <ion-item lines='none' class="item-menu" style="margin-top: 2rem;"> 
+      <ion-item lines='none' class="item-menu" style="margin-top: 2rem;" (click)="myCards()"> 
         <div class="box-icon-2">
           <img class="icon-svg" src="../../../assets/icon/wallet-solid.svg" >
         </div>
@@ -44,7 +49,7 @@
       </ion-item>
     </ion-row>
     <ion-row>
-      <ion-item lines='none' class="item-menu" style="margin-top: 2rem;">
+      <ion-item lines='none' class="item-menu" style="margin-top: 2rem;" (click)="Payments()">
         <div class="box-icon-3">
           <img class="icon-svg" src="../../../assets/icon/file-invoice-dollar-solid.svg" >
         </div>

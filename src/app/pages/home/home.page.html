@@ -1,10 +1,90 @@
 <div *ngIf='isLoad' class="load">
-  <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+  <div *ngIf='loads'>
+    <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+  </div>
+  <div *ngIf='warning'>
+    <div class="box_alerts">
+      <img src="../../../assets/icon/warning.svg">
+      <h1>Atenção</h1> 
+      <p>Houve algum erro com seu cartão, verifique com seu banco e tente novamente ou cadastre outro cartão de crédito!</p>
+      <hr width="90%" color="#ddd">
+      <button style="background-color: #FFB703; margin-top: 1.5rem;" (click)="CloseBox()">Ok</button>
+    </div>
+  </div>
+  
+</div>
+
+<div class="viewRide scale-up-ver-bottom slide-in-bottom" *ngIf='myTravel'>
+  <div class="top_modl"></div>
+  <ion-item lines="none" style="--background: transparent; width: 100%; margin-top: 0.5rem;">
+    <ion-label class="yourdriver">Seu motorista chegará em alguns minutos...</ion-label>
+  </ion-item>
+  <hr width="90%" color="#E5E5E5">
+  <ion-row>
+    <div class="driver_pic" *ngIf="driverPhoto">
+      <img src="{{driverData.photo}}">
+    </div>
+    <div class="driver_icon" *ngIf="!driverPhoto">
+      <img src="../../../assets/icon/user-regular-profile.svg">
+    </div>
+    <div class="info_driver">
+      <h1 class="drivername">{{driverData.nome}}</h1>
+      <div class="loc">
+        <ion-icon name="location-outline"></ion-icon><p>Em Minutos</p>
+      </div>
+      <div  class="sta">
+        <ion-icon name="star"></ion-icon><p>{{driverData.Rank}}</p>
+      </div>
+      <div class="car">
+        <img src="../../../assets/img/car-Premium.svg"> 
+        <p>Avaris Car</p>
+      </div>
+    </div>
+  </ion-row>
+  <hr width="90%" style="margin-top: 1rem;" color="#E5E5E5">
+  <ion-row>
+    <ion-item lines="none" class="security_trip">
+      <ion-icon name="alert-circle" slot="start"></ion-icon>
+      <p>Com a Avaris, você viaja com conforto e segurança, sua localização está sendo transmitida e criptografada, para sua segurança
+        e proteção, estamos te acompanhando e prontos para te atender a qualquer momento. Sinta-se seguro(a).</p>
+    </ion-item>
+  </ion-row>
+  <hr width="90%" style="margin-top: 0.5rem;" color="#E5E5E5">
+
+  <ion-label class="viagem_">Viagem</ion-label>
+  <ion-row style="margin-top: 2.5rem;">
+    <ion-item lines="none" style="margin-top: -1.5rem; width: 100%; --background: transparent;">
+      <ul class="progress">
+        <li class="progress__item progress__item--completed">
+          <img src="../../../assets/icon/arrow_mytrip.svg">
+          <p class="progress__title">Início: {{myTrip.startPointTitle}}</p>
+        </li>
+        <li class="progress__item progress__item--active">
+          <img src="../../../assets/icon/location_mytrip.svg">
+          <p class="progress__title">Destino: {{myTrip.endPointTitle}}</p>   
+        </li>
+      </ul>
+      <!-- <p class="progress__subtitle1">{{time}}</p>
+      <p class="progress__subtitle2">{{time}}</p> -->
+    </ion-item>
+  </ion-row>
+  <hr width="90%" style="margin-top: -4rem;" color="#E5E5E5">
+  <div style="position: absolute; left: 0; right: 0; bottom: 1rem;">
+    <ion-row style="width: 100%;">
+      <ion-col class="col_chat" size="3">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+      </ion-col>
+      <ion-col class="col_cancel" size="8" (click)="cancelTrip()">
+        <ion-label>Cancelar</ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
 </div>
 
 <ion-content padding [ngClass]="(isLoad==true)?'mask':'no-mask'">
-  <ion-grid>
-    <ion-row>
+
+  <ion-grid *ngIf="!showPremiumPage" style="background-color: #fff;">
+    <ion-row><!-- style="margin-top: 1rem;" -->
       <div class="head-text" *ngIf='!lg'>
         <h1 class="welcome">Bem-vindo a</h1>
         <p class="name">Avaris</p>
@@ -22,8 +102,14 @@
       <div class="head-text" *ngIf="profileUser.nome == undefined">
         
       </div>
-      <div class="head-img" (click)='menu()'>
+      <!-- <div class="head-img" (click)='menu()' *ngIf="profileUser.nome != undefined">
+        <div class="border-profile-withPic"><img ></div>
+      </div> --> <!-- *ngIf="profileUser.nome == undefined" -->
+      <div class="head-img" (click)='menu()' *ngIf="!PHOTO">
         <div class="border-profile"><img src="../../../assets/icon/user-regular-profile.svg"></div>
+      </div>
+      <div class="head-img" (click)='menu()' *ngIf="PHOTO">
+        <div class="border-profile-withPic"><img src="{{myPhoto}}"></div>
       </div>
     </ion-row>
     <!-- <ion-row class="navBarrow">
@@ -64,66 +150,67 @@
           </div>
         </ion-item>
       </div>
-      <button class="back-btn" (click)='back()' [hidden]='!destionation'>
-        <ion-icon name='arrow-back'></ion-icon>
-      </button>
+      <div [hidden]='!destionation' style="height: 128px; width: 95%; border-radius: 25px; background-color: transparent; margin: auto; display: block; margin-top: 0.8rem; position: absolute; left: 0; right: 0; z-index: 902;">
+        <button class="back-btn" (click)='back()' >
+          <ion-icon name='arrow-back'></ion-icon>
+        </button>
+      </div>
       <!-- //controller-bar -->
       <div>
-        <ion-list [hidden]='!search.length' class="listResult">
-          <ion-item (click)='calcRoute(result)' *ngFor='let result of searchResults'>
-            {{result.description}}
+        <ion-list [hidden]='!search.length' class="listResult" style="background-color: #fff; border-radius: 14px 14px 14px 14px; width: 95%; z-index: 901; margin-top: 6rem;">
+          <ion-row style="height: 30px;"></ion-row>
+          <ion-item (click)='calcRoute(result)' *ngFor='let result of searchResults' style="--background: rgb(241, 241, 241); width: 100%; height: 100%; border-radius: 14px; margin-top: 0.4rem;" lines="none">
+            <ion-icon style="width: 20px; height: 20px; color: #767676;" name="location"></ion-icon>
+            <p style="color: #101010; font-size: 10pt; margin-left: 0.5rem;">{{result.description}}</p>
+            <ion-icon style="width: 18px; height: 18px; color: #767676;" name="navigate-outline" slot="end"></ion-icon>
           </ion-item>
         </ion-list>
       </div> 
-
+          
       <div class="pick-location" (click)='pickLocation()' [hidden]='destionation' style="z-index: 1002;">
         <ion-icon name="locate-outline" style="color: #fff;"></ion-icon>
       </div>
       <!-- //Results cars -->
       <div class="request-car scale-up-ver-bottom slide-in-bottom" [hidden]='!destionation'>
-        <ion-grid class="ion-margin-vertical" *ngIf='step_request'>
-          <ion-row style="margin-top: -1rem;">
-            <ion-col size='6' (click)='option1()'>
-              <div class="box-car" [hidden]='opt1'>
+        <ion-grid class="ion-margin-vertical" style="z-index: 99;" *ngIf='step_request'>
+
+          <ion-row *ngIf="kmDistance < 1.99" style="margin-top: -1rem;">
+            <ion-col size='6' >
+              <div class="box-car">
                 <img src="../../../assets/img/car2.svg">           
               </div>
-              <div class="box-car-selected" [hidden]='!opt1'>
-                <img src="../../../assets/img/car2.svg">           
-              </div>
-              <span class="category">Individual</span>
+              <span class="category">Normal</span>
               <p class="price">{{price | currency:'BRL':true}}</p>
             </ion-col>
-            <ion-col size='6' (click)='option3()'>
-              <div class="box-car-subs" [hidden]='opt3'>
-                <img src="../../../assets/img/car1.svg">
+            <ion-col size='6'>
+              <div class="box-car-subs-disabled" [hidden]='opt3'>
+                <img style="margin-top: -1rem;" src="../../../assets/img/car1.svg">
               </div>
-              <div class="box-car-subs-selected" [hidden]='!opt3'>
-                <img src="../../../assets/img/car1.svg">
-              </div>
-              <span class="category">SEJA PREMIUM</span>
-              <p class="price"><span>{{price | currency:'BRL':true}}</span>  &nbsp;{{priceDescont | currency:'BRL':true}}</p>
+              <span class="category">Avaris Premium</span>
+              <p class="price">Disponível apartir de 2 Km</p>
             </ion-col>
           </ion-row>
-          <!-- <ion-row>
-            <ion-col size='4' style="background-color: beige;">
-              <ion-item class="box-options">
-                <ion-icon name="card-outline"></ion-icon>
-                <ion-label>Débito/Crédito</ion-label>
-              </ion-item>
+
+          <ion-row *ngIf="kmDistance > 1.99" style="margin-top: -1rem;">
+            <ion-col size='8'>
+              <div class="box-car-subs">
+                <img class="car" src="../../../assets/img/car1.svg">
+                <img class="icon" src="../../../assets/img/LOGO.svg">       
+              </div>
+              <span class="category">Avaris Premium</span>
+              <p class="pricePremium">{{priceAvarisPremium | currency:'BRL' }}</p>
             </ion-col>
-            <ion-col size='4'>
-              <ion-item class="box-options">
-                <ion-icon name="share-social"></ion-icon>
-                <ion-label>Compartilhar</ion-label>
-              </ion-item>
-            </ion-col>            
-            <ion-col size='4'>         
-              <ion-item class="box-options">
-                <ion-icon name="ellipsis-horizontal"></ion-icon>
-                <ion-label>Mais opções</ion-label>
-              </ion-item>
+            <ion-col size="4">
+              <div class="box-car-subs-disabled">
+                <img src="../../../assets/img/car2.svg">
+              </div>
+              <span class="category" style="color: #8D8D8D;">Normal</span>
+              <p class="price" style="color: #8D8D8D;">{{priceAvarisPremium * 2 | currency:'BRL' }}</p>
             </ion-col>
-          </ion-row> -->
+          </ion-row>
+
+          <div *ngIf='step_request' class="bar-options"></div>
+          <div *ngIf='!step_request' class="bar-options"></div>
         </ion-grid>
         <ion-grid class="ion-margin-vertical" *ngIf='!step_request'>
            <ion-row style="margin-top: -1.5rem;"> 
@@ -152,38 +239,44 @@
                 </ion-item>
              </ion-col>
            </ion-row>
+           <div *ngIf='step_request' class="bar-options"></div>
+           <div *ngIf='!step_request' class="bar-options"></div><!-- style="margin-top: -2rem;"  -->
         </ion-grid>
-        <div *ngIf='step_request' class="bar-options"></div>
-        <div *ngIf='!step_request' style="margin-top: -2rem;" class="bar-options"></div>
+        
         <ion-row *ngIf='!step_request'>
-             <ion-item class="item-method-payment" lines='none'>
+             <ion-item class="item-method-payment" lines='none' *ngIf="!choisemethod" (click)="addCard()">
                <ion-icon name="card-outline" slot="start"></ion-icon>
                <ion-label>Método de pagamento: </ion-label>
                <ion-icon class="arrow" name="caret-forward-outline" slot="end"></ion-icon>
              </ion-item>
+             <ion-item class="item-method-payment" lines='none' *ngIf="choisemethod" style="width: 100%;">
+               <ion-icon name="card-outline" slot="start"></ion-icon>
+               <ion-label style="font-size: 10pt; margin-left: 0.5rem;">{{cardLast4}}</ion-label>
+               <ion-icon class="arrow" name="caret-forward-outline" slot="end"></ion-icon>
+            </ion-item>
         </ion-row>
         <div *ngIf='!step_request' style="margin-top: 0rem;" class="bar-options"></div>
         <!-- STEP 1 -->
         <div *ngIf='step_request'>
-          <button class="confirm-request" [hidden]='allowStep1'>
-            <p>Selecione uma opção</p>
-         </button>
-         <button class="confirm-request-allowed" [hidden]='!allowStep1' (click)='nextStep()'>
-          <p>Selecione uma opção</p> 
+          <button class="confirm-request-allowed" [hidden]='AVARISPREMIUM' (click)='nextStepNormal()'>
+            <p>Continuar</p>
+         </button> 
+         <button class="confirm-request-allowed" [hidden]='!AVARISPREMIUM' (click)='nextStepPremium()'>
+            <p>Continuar</p> 
          </button>
         </div>
         <div *ngIf='!step_request'>
-         <button class="confirm-car" (click)="confirmRide()"><!-- (click)='confirmRide()' --> <!-- "makePayment(15)" -->
+         <button class="confirm-car" (click)="makeTrigger()">
           <p>Confirmar</p> 
          </button>
         </div>
       </div>
 
-      <div *ngIf="searchingDriver" class="request-car scale-up-ver-bottom slide-in-bottom" style="z-index: 1003;">
-        <!-- <div>
+      <div *ngIf="searchingDriver" class="info_ride" >
+        <div >
           <p class="title-search-drive tracking-in-expand">Procurando um motorista...</p>
         </div>
-        <div style="margin-top: 1rem;">
+        <!-- <div style="margin-top: 1rem;">
           <lottie-animation-view [options]="lottieConfig2" [width]="100" [height]="100"></lottie-animation-view>
         </div> -->
       </div>
@@ -226,13 +319,58 @@
         </ion-col>
        </ion-row>
       </div>
-
     </ion-row>
+  </ion-grid>
+  <ion-grid class="avarisPremium" *ngIf="showPremiumPage">
+    <ion-item style="margin-top: 0.5rem; margin-left: -0.5rem; --background: transparent;" lines="none">
+      <ion-icon name="close-outline" (click)="closePopUp()"></ion-icon>
+    </ion-item>
+    <ion-row class="car_marg">
+      <img class="car-premium" src="../../../assets/img/car-Premium.svg">  
+      <h1 class="title-premium">Abrace a Liberdade de viajar mais!</h1>
+    </ion-row>
+    <ion-row class="badge-premium">
+      <div><p>SEJA PREMIUM</p></div>
+    </ion-row>
+    <ion-row>
+      <!-- <ion-label class="benef-text">Benefícios:</ion-label> -->
+    </ion-row>
+    <ion-row style="margin-top: 2rem;">
+      <ion-col size="3">
+        <div class="benef-circle">
+         <img src="../../../assets/icon/desconto.png">
+         <p>50% de desconto nas corridas</p>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="benef-circle">
+          <img src="../../../assets/icon/brazil_map.png">
+          <p>Cobertura São Paulo-SP</p>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="benef-circle">
+          <img src="../../../assets/icon/seat-belt.png">
+          <p>Viage com segurança nas viagens</p>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="benef-circle">
+          <img src="../../../assets/icon//stock-low.png">
+          <p>O menor preço por esse serviço.</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <p class="price-premium">Assine agora R$ 9,90 /Mês<!-- <span>R$ 9,99 /mês</span> --></p>
+    </ion-row>
+    <button class="btn-subscribe">
+      Começar
+    </button>
+
+
   </ion-grid>
   <div class="map-box">
     <div #map id="map" ></div> 
-  </div>
-  <div *ngIf="searchingDriver" style="position: absolute; bottom: -2rem; left: 0; right: 0; margin: auto; display: block; z-index: 1200; width: 90%;">
-    <div id="paypal-button-container"></div>
   </div>
 </ion-content>

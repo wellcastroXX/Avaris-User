@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="943" height="898" viewBox="0 0 943 898">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Retângulo_4" data-name="Retângulo 4" width="1000" height="1000"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <path id="Caminho_1" data-name="Caminho 1" d="M0,265.957H62.977S113.021,133.568,244,125.453c0,0-7.954-1.933-21.858-1.933-40.236,0-130.35,16.206-222.143,142.437" transform="translate(0 -123.52)" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" y1="0.977" x2="1" y2="0.019" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1273a9"/>
+      <stop offset="0.472" stop-color="#30beee"/>
+      <stop offset="1" stop-color="#1173aa"/>
+    </linearGradient>
+    <clipPath id="clip-path-3">
+      <path id="Caminho_2" data-name="Caminho 2" d="M77.23,173.65c40.05-42.883,78.417-66.785,110.9-79.858L158.209,47Z" transform="translate(-77.23 -47)" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-2" x1="0.568" y1="0.178" x2="0.677" y2="0.779" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1273a9"/>
+      <stop offset="1" stop-color="#30beee"/>
+    </linearGradient>
+    <clipPath id="clip-path-4">
+      <path id="Caminho_3" data-name="Caminho 3" d="M264.59,215.541l43.252,69.792c5.6,9.039,19.5,16.369,31.032,16.369h29.1L296.725,190.3a212.35,212.35,0,0,0-32.135,25.241" transform="translate(-264.59 -190.3)" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-3" x1="0.179" y1="0.093" x2="0.603" y2="0.901" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#30beee"/>
+      <stop offset="1" stop-color="#1173aa"/>
+    </linearGradient>
+    <clipPath id="clip-Tamanho_personalizado_1">
+      <rect width="943" height="898"/>
+    </clipPath>
+  </defs>
+  <g id="Tamanho_personalizado_1" data-name="Tamanho personalizado – 1" clip-path="url(#clip-Tamanho_personalizado_1)">
+    <g id="Tamanho_personalizado_1-2" data-name="Tamanho personalizado – 1" transform="translate(-28 -53)" clip-path="url(#clip-path)">
+      <g id="Polígono_1" data-name="Polígono 1" transform="translate(38 55)">
+        <path id="Caminho_4" data-name="Caminho 4" d="M619.822,0a85,85,0,0,1,58.934,23.748L898.934,235.6A85,85,0,0,1,925,296.847V593.153A85,85,0,0,1,898.938,654.4L678.756,866.252A85,85,0,0,1,619.822,890H305.178a85,85,0,0,1-58.934-23.748L26.066,654.4A85,85,0,0,1,0,593.153V296.847A85,85,0,0,1,26.063,235.6L246.244,23.748A85,85,0,0,1,305.178,0Z" fill="none"/>
+        <path id="Caminho_5" data-name="Caminho 5" d="M305.178,17a67.68,67.68,0,0,0-47.147,19L37.853,247.846a68.336,68.336,0,0,0-20.853,49V593.153a68.338,68.338,0,0,0,20.853,49L258.031,854a67.678,67.678,0,0,0,47.147,19H619.822a67.678,67.678,0,0,0,47.147-19L887.147,642.154a68.337,68.337,0,0,0,20.853-49V296.847a68.337,68.337,0,0,0-20.853-49L666.969,36a67.68,67.68,0,0,0-47.147-19H305.178m0-17H619.822a85,85,0,0,1,58.934,23.748L898.934,235.6A85,85,0,0,1,925,296.847V593.153a85,85,0,0,1-26.066,61.252L678.756,866.252A85,85,0,0,1,619.822,890H305.178a85,85,0,0,1-58.934-23.748L26.066,654.405A85,85,0,0,1,0,593.153V296.847A85,85,0,0,1,26.066,235.6L246.244,23.748A85,85,0,0,1,305.178,0Z" fill="#031d44"/>
+      </g>
+      <path id="Polígono_2" data-name="Polígono 2" d="M563.809,0A85,85,0,0,1,622.93,23.929l197.191,190.9A85,85,0,0,1,846,275.9V543.1a85,85,0,0,1-25.878,61.072L622.93,795.071A85,85,0,0,1,563.809,819H282.191a85,85,0,0,1-59.122-23.929L25.878,604.172A85,85,0,0,1,0,543.1V275.9a85,85,0,0,1,25.878-61.071L223.07,23.929A85,85,0,0,1,282.191,0Z" transform="translate(77 91)" fill="#031d44"/>
+      <circle id="Elipse_1" data-name="Elipse 1" cx="9" cy="9" r="9" transform="translate(491 302)" fill="#257eaf"/>
+      <circle id="Elipse_2" data-name="Elipse 2" cx="230" cy="230" r="230" transform="translate(270 312)" fill="#495d7a"/>
+      <path id="Caminho_1-2" data-name="Caminho 1" d="M18.594-22.245,74.687,1.565l39.378,232.066-81.49-29.043Z" transform="translate(348.564 118.742) rotate(-23.003)" fill="#1f7bae"/>
+      <path id="Caminho_2-2" data-name="Caminho 2" d="M18.594,218.291l56.656-24.05,37.685-236.9L25.143-5.388Z" transform="translate(578.989 299.203) rotate(-156.997)" fill="#1e96c9"/>
+      <rect id="Retângulo_1" data-name="Retângulo 1" width="96" height="11" transform="translate(458 294)" fill="#257eaf"/>
+      <g id="Elipse_3" data-name="Elipse 3" transform="translate(270 312)" fill="#355380" stroke="#fff" stroke-width="8">
+        <ellipse cx="230" cy="220" rx="230" ry="220" stroke="none"/>
+        <ellipse cx="230" cy="220" rx="226" ry="216" fill="none"/>
+      </g>
+      <g id="Elipse_4" data-name="Elipse 4" transform="translate(330 362)" fill="none" stroke="#fff" stroke-width="7">
+        <circle cx="170" cy="170" r="170" stroke="none"/>
+        <circle cx="170" cy="170" r="166.5" fill="none"/>
+      </g>
+      <g id="LOGO_A" transform="translate(387 434.04)">
+        <g id="Grupo_1" data-name="Grupo 1" transform="translate(0 35.523)" clip-path="url(#clip-path-2)">
+          <rect id="Retângulo_1-2" data-name="Retângulo 1" width="244" height="142.442" transform="translate(0 -0.005)" fill="url(#linear-gradient)"/>
+        </g>
+        <g id="Grupo_2" data-name="Grupo 2" transform="translate(37.688 -0.04)" clip-path="url(#clip-path-3)">
+          <rect id="Retângulo_2" data-name="Retângulo 2" width="110.903" height="126.631" transform="translate(0 0.019)" fill="url(#linear-gradient-2)"/>
+        </g>
+        <g id="Grupo_3" data-name="Grupo 3" transform="translate(129.12 66.559)" clip-path="url(#clip-path-4)">
+          <rect id="Retângulo_3" data-name="Retângulo 3" width="103.383" height="111.401" transform="translate(0 0)" fill="url(#linear-gradient-3)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

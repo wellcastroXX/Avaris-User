@@ -8,3 +8,538 @@ ion-content{
     ion-label{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 22pt; color: #031D44;}
     .sub{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; }
 }
+
+.my-cards{
+    font-family: 'Coco Sharp'; font-weight: 700; font-size: 15pt; color: #031D44; margin-left: 1rem;
+}
+
+.add-card{
+   position: absolute; right: 0; margin-right: 1rem; width: 40px; height: 40px; border-radius: 50%; background-color: #031D44; margin-top: -0.3rem;
+   ion-icon{ width: 24px; height: 24px; color: #fff; margin: auto; display: block; margin-top: 0.5rem; } 
+}
+
+.new-card{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    width: 90%;
+    position: relative;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 4px 0 #cfd7df;
+    border: 2px dashed #b1b1b1;
+    min-height: 70px;
+    padding: 13px;
+    color: #efefef;
+    p{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 12pt; color: #101010; text-align: center;}
+}
+.info{
+p{ font-family: 'Coco Sharp'; font-weight: 400; font-size: 9pt; color: #b1b1b1; text-align: left;}
+}
+.selected{ border: 2px #2ECB70 solid; width: 90%; height: 88px; border-radius: 16px; margin: auto; display: block; box-shadow: 0px 0px 15px -3px #2ECB70;
+.icon{ width: 18px;height: 18px; position: absolute; float: left; left: 0; margin-left: 1.5rem; margin-top: -1.5rem;}}
+
+.credit-card{
+ 
+   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
+
+.payments{
+    font-family: 'Coco Sharp'; font-weight: 700; font-size: 15pt; color: #031D44; margin-left: 1rem;
+}
+
+//
+
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: 100%;
+    height: 245px;
+    position: relative;
+    .card {
+      display: inline-block;
+      width: 50%;
+      height: 220px;
+      background: #ffffff;
+      margin: 10px;
+      border-radius: 20px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      box-sizing: border-box;
+      .flags{ margin-top: 9rem; float: left; left: 0; margin-left: 1rem; img{width: 52px;}
+      }
+      .options{ float: right; right: 0; margin-top: 10.5rem; margin-right: 0.5rem;
+        ion-icon{ height: 24px; width: 24px; }
+      }
+    }
+    .card-selected{
+        display: inline-block;
+        width: 50%;
+        height: 220px;
+        background: #ffffff;
+        margin: 10px;
+        border-radius: 20px;
+        border: 2px #2ECB70 solid;
+        box-shadow: 0px 0px 15px -3px #2ECB70;
+        box-sizing: border-box;
+        .flags{ margin-top: 9rem; float: left; left: 0; margin-left: 1rem; img{width: 52px;} 
+        }
+        .icon{ width: 18px; height: 18px; float: right; right: 0; margin-right: 0.5rem; margin-top: 0.5rem; }
+        .options{ float: right; right: 0; margin-top: 10.5rem; margin-right: -1rem;
+            ion-icon{ height: 24px; width: 24px; }
+        }
+    }
+  }
+  .info-mycard{ top: 0; position: absolute;
+    .name{ font-family: 'Coco Sharp'; font-weight: 800; font-size: 12pt; color: #101010; margin-top: 1.5rem; margin-left: 1rem;} 
+    .number{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #585858; margin-left: 1rem; }
+    .expiry{ font-family: 'Coco Sharp'; font-weight: 800; font-size: 10pt; color: #101010; margin-top: 1rem; margin-left: 1rem; }
+    .cvv{  font-family: 'Coco Sharp'; font-weight: 800; font-size: 10pt; color: #101010; margin-left: 2rem;}
+  }
+ 
+
+  //
+
+  .datacardTitle{
+    font-family: 'Coco Sharp'; font-weight: 500; text-align: center; font-size: 11pt; color: #767676;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    content: "";
+    display: table;
+  }
+  .clearfix:after {
+    clear: both;
+  }
+  .clearfix {
+    zoom: 1;
+  }
+  
+  #title{
+    font-family: 'Coco Sharp'; font-weight: 500;
+    font-size: 100px;
+    color: #e0e0e0;
+    position: absolute;
+    left: 10%;
+    top:50%;
+    transform: rotate(-30deg);
+    transform-origin: bottom left;
+  }
+  
+  .card-bounding{
+    width: 95%;
+    margin: 0 auto; margin-top: -0.5rem;
+    border-radius: 4px;
+    font-family: 'Coco Sharp'; font-weight: 500;
+    background: transparent;
+  }
+  
+  .card-bounding aside{
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #767676;
+  }
+  .card-name-card{
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto 30px auto;
+  }
+  .card-name-card input {
+      border-radius: 12px;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 12pt; color: #101010;
+      height: 45px;
+      border: 0;
+      outline: none;
+      box-sizing: border-box;
+    }
+  .card-container {
+    width: 100%;
+    padding-left: 80px;
+    padding-right: 40px;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px 6px 0px 0px;
+    margin: 0 auto 30px auto;
+  }
+  .card-container input {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 12pt; color: #101010;
+    letter-spacing: 1px;
+    height: 45px;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .card-type {
+    width: 30px;
+    height: 30px;
+    background: url("../../../assets/icon/credit-card/credit-card-empty.png") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+  }
+  .card-type.mastercard {
+    width: 30px;
+    height: 30px;
+      background: url("../../../assets/icon/credit-card/maestro.png") no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position: absolute;
+      top: 7px;
+      left: 6px;
+  }
+  .card-type.visa {
+    width: 30px;
+    height: 30px;
+      background: url("../../../assets/icon/credit-card/visa.png") no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position: absolute;
+      top: 7px;
+      left: 6px;
+  }
+  .card-type.amex {
+    width: 30px;
+    height: 30px;
+      background: url("../../../assets/icon/credit-card/American-Express.png") no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position: absolute;
+      top: 7px;
+      left: 6px;
+  }
+  .card-type.discover {
+      width: 30px;
+      height: 30px;
+      background: url("../../../assets/icon/credit-card/diners.png") no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position: absolute;
+      top: 7px;
+      left: 6px;
+  }
+  .card-valid {
+    position: absolute;
+    top:0.9rem;
+    right: 0.5rem;
+    float: right;
+    width: 18px;
+    height: 18px;
+    background: url("../../../assets/icon/check-solid.svg") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .card-valid.active {
+    position: absolute;
+    top:0.9rem;
+    right: 0.5rem;
+    float: right;
+    width: 18px;
+    height: 18px;
+    background: url("../../../assets/icon/check-solid-active.svg") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .card-details {
+    width: 100%; margin-top: -2rem;
+    text-align: left;
+    margin-bottom: 30px;
+    transition: 300ms ease;
+  }
+  .card-details input {
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; color: #101010;
+    padding: 15px; height: 45px; border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .card-details ion-input {
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; color: #101010;
+    padding: 15px; height: 45px; border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .card-details input.error {
+    border: 1px solid #c2313c;
+    box-shadow: 0 4px 8px 0 rgba(238,76,87,0.3);
+    outline: none;
+  }
+  .card-details .expiration {
+    width: 50%;
+    height: 45px;
+    float: left;
+    
+  }
+  .card-details .cvv {
+    width: 50%;
+    height: 45px;
+    float: left;
+  }
+
+  .item_checkbox-terms{
+    width: 100%; height: 55px; border: 1px solid #ccc; border-radius: 6px;
+    ion-checkbox{ position: absolute; float: left; left: 0; margin-top: 1rem;}
+    p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010; margin-left: 2.5rem; margin-top: 1rem; }
+  }
+
+  .assinar{
+    width: 100%; height: 50px; background-color: #031D44; color: #fff; text-align: center; margin: auto; display: block;
+    margin-top: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt; border-radius: 6px;
+  }
+
+.btns-finish{ width: 100%; display: flex;  margin-top: 1rem;
+    .btn-cancel{ --background: transparent; color: #FC4F4F; border-radius: 35px; text-align: center; width: 45%; height: 45px; 
+      font-family: 'Coco Sharp'; font-weight: 600; font-size: 11pt; margin-top: 1rem; margin: auto; display: block;
+    }
+    .btn-save{ --background: transparent; color: #031D44; border-radius: 35px; text-align: center; width: 45%; height: 45px; 
+      font-family: 'Coco Sharp'; font-weight: 600; font-size: 11pt; margin-top: 1rem; margin: auto; display: block;
+    }
+}
+
+//
+// 
+// 
+// 
+// 
+// 
+
+/* Credit Card Form */
+.usable-creditcard-form, .usable-creditcard-form * {
+  font-size: 13px;
+}
+.usable-creditcard-form {
+  position: relative;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.usable-creditcard-form .wrapper {
+  border: 1px solid #CCC;
+  border-top: 1px solid #AAA;
+  border-right: 1px solid #AAA;
+  height: 74px;
+  width: 100%;
+  position: relative;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.usable-creditcard-form .input-group {
+  position: absolute;
+  top: 300px;
+}
+.usable-creditcard-form .input-group.nmb_a {
+  position: absolute;
+  width: 200px;
+  top: 0px;
+  left: 0px;
+}
+.usable-creditcard-form .input-group.nmb_b {
+  position: absolute;
+  width: 100px;
+  top: 0px;
+  right: 0px;
+}
+.usable-creditcard-form .input-group.nmb_b input,
+.usable-creditcard-form .input-group.nmb_d input {
+  text-align: center;
+}
+.usable-creditcard-form .input-group.nmb_c {
+  position: absolute;
+  width: 200px;
+  top: 37px;
+  left: 0px;
+}
+.usable-creditcard-form .input-group.nmb_d {
+  position: absolute;
+  width: 100px;
+  top: 37px;
+  right: 0px;
+}
+.usable-creditcard-form input {
+  background: none;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin:0px;
+  padding-left: 35px;
+  border: none;
+}
+.usable-creditcard-form .input-group .icon {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #CCC;
+  left: 8px;
+  top: 7px;
+}
+.usable-creditcard-form .input-group.nmb_a input {
+  border-right: 1px solid #ECECEC;
+}
+.usable-creditcard-form .input-group.nmb_c input {
+  border-top: 1px solid #ECECEC;
+  border-right: 1px solid #ECECEC;
+}
+
+.usable-creditcard-form input::-webkit-input-placeholder {
+  font-size: 12px;
+  text-transform: none;
+}
+.usable-creditcard-form .input-group.nmb_d input {
+  border-top: 1px solid #ECECEC;
+}
+
+.usable-creditcard-form .input-group.nmb_c input {
+  text-transform: uppercase;
+}
+.usable-creditcard-form .accept {
+  color: #999;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+.usable-creditcard-form .footer {
+  margin-top: 3px;
+  position: relative;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.usable-creditcard-form .footer img {
+  padding: 0px;
+  margin: 0px;
+}
+.usable-creditcard-form .iugu-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+/* Do not forget to store your images in a secure server */
+.usable-creditcard-form .input-group .icon.ccic-name {
+  background: url("https://s3-sa-east-1.amazonaws.com/storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-name.1cafa1882fdd56f8425de54a5a5bbd1e.png") no-repeat;
+}
+.usable-creditcard-form .input-group .icon.ccic-exp {
+  background: url("https://s3-sa-east-1.amazonaws.com/storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-exp.05e708b1489d5e00c871f20ba33bbff3.png") no-repeat;
+}
+.usable-creditcard-form .input-group .icon.ccic-brand {
+  background: url("https://s3-sa-east-1.amazonaws.com/storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-brands.48dba03883007f86e118f683dcfc4297.png") no-repeat;
+}
+.usable-creditcard-form .input-group .icon.ccic-cvv { background: url("https://s3-sa-east-1.amazonaws.com/storage.pupui.com.br/9CA0F40E971643D1B7C8DE46BBC18396/assets/ccic-cvv.1fe78dcc390427094bdc14dedea10f34.png") no-repeat; }
+
+.usable-creditcard-form .input-group .icon.ccic-cvv,
+.usable-creditcard-form .input-group .icon.ccic-brand
+{
+  -webkit-transition:background-position .2s ease-in;
+  -moz-transition:background-position .2s ease-in;
+  -o-transition:background-position .2s ease-in;
+  transition:background-position .2s ease-in;
+}
+
+.amex .usable-creditcard-form .input-group .icon.ccic-cvv {
+  background-position: 0px -22px;
+}
+
+.amex .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0px -110px;
+}
+
+.visa .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0px -22px;
+}
+
+.diners .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0px -88px;
+}
+
+.mastercard .usable-creditcard-form .input-group .icon.ccic-brand {
+  background-position: 0px -66px;
+}
+
+/* Non Credit Card Form - Token Area */
+.token-area {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px dotted #CCC;
+  display: block;
+  padding: 20px;
+  background: #EFEFEF;
+}
+
+
+//
+
+.load{
+	position: absolute; top: 50%; transform: translateY(-50%);  z-index: 1000; left: 0; right: 0;
+}
+
+.no-mask{
+   
+}
+.mask{
+  display:block;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(15px);
+  -o-filter: blur(15px);
+  -ms-filter: blur(15px);
+  filter: blur(1.5px);
+  opacity: 0.95;
+  z-index: 999;
+}
+
+.box_alerts{
+  width: 85%; height: 340px; position: absolute; top: 50%; transform: translateY(-65%); margin: auto; display: block; 
+  left: 0; right: 0; background-color: #fff; border-radius: 25px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  img{ margin: auto; display: block; width: 65%; margin-top: 1rem; }
+  h1{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 20pt; color: #101010; text-align: center; margin-top: 0.5rem;}
+  p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #101010; text-align: center; margin-top: 0.5rem; width: 90%; margin: auto; display: block;}
+  hr{ margin-top: 1rem; }
+  button{ margin: auto; display: block; width: 50%; height: 35px; border-radius: 20px; text-align: center; color: #fff; 
+    font-family: 'Coco Sharp'; font-weight: 500; font-size: 12pt;}
+}
+
+.scale-up-center {
+	-webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+ @-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}

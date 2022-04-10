@@ -1,0 +1,66 @@
+<div *ngIf='isLoad' class="load">
+  <div *ngIf="loading">
+    <lottie-animation-view [options]="lottieConfig" [width]="300" [height]="300"></lottie-animation-view>
+  </div>
+  <div class="boxphoto" *ngIf="BoxPhoto">
+    <ion-row style="margin-top: 1rem;">
+      <h1>Sua Foto</h1>
+    </ion-row>
+    <div class="circle-progress" style="top: 1rem">
+      <div class="circle-icon" *ngIf="!base64Image">
+        <img src="../../../assets/icon/user-regular-profile.svg">
+      </div>
+      <div class="circle-pic" *ngIf="base64Image">
+        <img src="{{base64Image}}">
+      </div>
+    </div>
+
+    <ion-row class="btns_save_ph">
+      <ion-col size="6">
+        <button class="c" (click)="cancelPhoto()">Cancelar</button>
+      </ion-col>
+      <ion-col size="6">
+        <button class="a" (click)="upload()">Atualizar</button>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+<ion-content [ngClass]="(isLoad==true)?'mask':'no-mask'" style="height: 100%;">
+    <ion-grid>
+      <ion-row style="margin-top: 1.5rem;">
+        <ion-item style="--background: transparent; margin-left: -0.5rem;" lines='none' (click)='profile()'>
+          <ion-icon name="arrow-back-outline" style="width: 18px; height: 18px; color: #031D44;"></ion-icon>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item class="item-title" lines='none'>
+          <ion-label>Meus Dados</ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-row>
+        <div class="circle-progress">
+          <div class="circle-icon" *ngIf="!base64Image">
+            <img src="../../../assets/icon/user-regular-profile.svg">
+          </div>
+          <div class="circle-pic" *ngIf="base64Image">
+            <img src="{{base64Image}}">
+          </div>
+        </div>
+      </ion-row>
+      <ion-row class="edit-pic" (click)="startPhoto()">
+        <p>Editar <img src="../../../../assets/icon/pencil-silhouette.png"></p>
+      </ion-row>
+  
+      <div *ngIf="userData != null">
+        <p class="item1">Nome: <input type="text" [(ngModel)]="formData.nome"></p>
+        <p class="item2">Sobrenome: <input type="text" [(ngModel)]="formData.sobrenome"></p>
+        <p class="item3">CPF: <input type="text" [(ngModel)]="formData.cpf"></p>
+        <p class="item4">Data de Nascimento: <input type="date" [(ngModel)]="formData.datadenascimento"></p>
+        <p class="item5">Celular: <input type="text" [(ngModel)]="formData.celular"></p>
+      </div>
+  
+      <button class="atualizar" *ngIf="!BoxPhoto" (click)="atualizar()">Atualizar</button>
+    </ion-grid>
+  </ion-content>

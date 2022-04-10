@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: WalletPage
+  },
+  {
+    path: 'modal-token',
+    loadChildren: () => import('./modal-token/modal-token.module').then( m => m.ModalTokenPageModule)
   }
 ];
 

@@ -1,18 +1,19 @@
 import { Component, NgZone, OnInit, Pipe, ViewChild } from '@angular/core';
 import { Environment, Geocoder, GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, ILatLng, LatLng, Marker, MarkerIcon, MyLocation } from '@ionic-native/google-maps';
-import { LoadingController, MenuController, NavController, Platform } from '@ionic/angular';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { AlertController, LoadingController, MenuController, NavController, Platform } from '@ionic/angular';
+import { Geolocation, Geoposition, } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
-import { Geoposition } from '@ionic-native/geolocation/ngx';
-import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
+import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication-service';
 import { LottieAnimationViewModule } from 'ng-lottie';
-import { HttpClient } from '@angular/common/http';
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http/ngx';
+import { Stripe } from '@ionic-native/stripe/ngx';
+import { firestore } from 'firebase';
 /* import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'; */
@@ -28,6 +29,7 @@ export class HomePage implements OnInit {
   /* @Pipe({
     name: 'kmDistance'
   }) */
+  url = "https://api.iugu.com";
   paymentHandler:any = null;
   private loading: any;
   Map: GoogleMap;
@@ -210,7 +212,6 @@ export class HomePage implements OnInit {
   //
   // Readable Address
   address: string;
-
   // Location coordinates
   Mylatitude: number;
   Mylongitude: number;
@@ -223,7 +224,7 @@ export class HomePage implements OnInit {
    watch:any;
    locationCoords: any;
    timetest: any;
-   locationCordinates: any;
+  locationCordinates: any;
   timestamp: any;
   startPosition: any;
   originPosition: any;
@@ -246,7 +247,11 @@ export class HomePage implements OnInit {
   minTOend: any;
   lottieConfig: { path: string; autoplay: boolean; loop: boolean; };
   lottieConfig2: { path: string; autoplay: boolean; loop: boolean; };
+  lottieConfig3: { path: string; autoplay: boolean; loop: boolean; };
   isLoad: boolean = false;
+  loads: boolean = false;
+  warning: boolean = false;
+  myTravel: boolean = false;
   //Result trip search
   startPointTitle: any;
   endPointTitle: any;
@@ -255,23 +260,45 @@ export class HomePage implements OnInit {
   kmRideValue: any;
   //Price Ride
   price: any;
-  priceDescont: any;
+  priceAvarisPremium: any;
   price2: any;
+  normalTrip: boolean = false;
+  AVARISPREMIUM: boolean = false;
+  showPremiumPage: boolean = false;
   //
   loadDriver: boolean = false;
   pointsTrip: ILatLng[];
   randomID: number;
   cardDetails: {};
   //
-  paymentAmount: string = '23.33';
-  currency: string = 'BRL';
-  currencyIcon: string = 'R$';
+  Datatrigger: any = [];
+  Datainvoice: any = [];
+  Datacharge: any = [];
   //Firebase Functions
-  
+  //payments
+  choisemethod: boolean = false;
+  cards: any = [];
+  cardSelected: any;
+  cardLast4: any;
+  cardName: any;
+  cardBrand: any;
+  PREMIUM: boolean = false;
+  CUS_ID: any;
+  Email: any;
+  //
+  myPhoto: any;
+  PHOTO: boolean = false;
+  //
+  FaturaID: any;
+  order: any;
+  myTrip: any = [];
+  driverData: any = [];
+  driverPhoto: boolean = false;
 
   constructor(private platform: Platform, private loadingCtrl: LoadingController, private ngZone: NgZone, private geolocation: Geolocation, private androidPermissions: AndroidPermissions,
     private locationAccuracy: LocationAccuracy, public menuCtrl: MenuController, private nativeGeocoder: NativeGeocoder, private afAuth: AngularFireAuth, public afstore: AngularFirestore,
-    private db: AngularFirestore, private authService: AuthenticationService, private http: HttpClient, private payPal: PayPal, private navCtrl: NavController) {
+    private db: AngularFirestore, private authService: AuthenticationService, private http: HttpClient, private navCtrl: NavController, public Http: HTTP,
+    private stripe: Stripe, public alertController: AlertController) {
       
       LottieAnimationViewModule.forRoot();
       this.lottieConfig = {
@@ -284,10 +311,16 @@ export class HomePage implements OnInit {
         autoplay: true,
         loop: true
       };
+      this.lottieConfig3 = {
+        path: 'assets/street.json',
+        autoplay: true,
+        loop: true
+      };
 
-      platform.ready().then(() => {
+      this.getCurrentCoordinates();
+      /* platform.ready().then(() => {
         this.getCurrentCoordinates();
-      });
+      }); */
 
       this.locationCoords = {
         lat: "",
@@ -304,13 +337,16 @@ export class HomePage implements OnInit {
           longitude: "",
           accuracy: "",
           timestamp: ""
-        }
+      }
       this.timestamp = Date.now();  
       if(this.lg == null){
         this.lg = false;
       }
   }
 
+  ionViewDidLoad() {
+    //this.stripe.setPublishableKey('pk_test_51KF5JnBYiw2MYl1OABl24qrUOe56ZGWD5l0y6He2Rp7aHSM54XPtOlfVOm5kQia2GrpDV7fUgJhhFyWcTp8jS6QH00LKcqMnFA');
+  }
   
   async ngOnInit() {
     this.afAuth.authState.subscribe(user => {
@@ -334,6 +370,22 @@ export class HomePage implements OnInit {
             localStorage.setItem('data', JSON.stringify(this.profileUser));
             JSON.parse(localStorage.getItem('data'));
             console.log(this.profileUser);
+            const CUS = this.profileUser.CUS_ID;  
+            this.CUS_ID = CUS;
+            this.Email = this.profileUser.email;
+            if(this.profileUser.avarispremium != undefined){
+              this.PREMIUM = this.profileUser.avarispremium[0].avaris;
+            }
+            if(this.profileUser.photo != undefined)
+            {
+              this.PHOTO = true;
+              this.myPhoto = this.profileUser.photo;
+              console.log("with photo");
+            }else{
+              this.PHOTO = false;
+              console.log("without photo");
+            }
+            this.verifyMethod();
         });
       }
       else {
@@ -345,10 +397,9 @@ export class HomePage implements OnInit {
     this.mapElement.style.width = this.platform.width() + 'px';
     this.mapElement.style.height = this.platform.height() + 'px'; 
     //
-    /* this.loadMap(); */
+    this.loadMap();
     //
   }
-  
 
   checkPermission() {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
@@ -404,7 +455,8 @@ export class HomePage implements OnInit {
       frequency: 3000,
       enableHighAccuracy: true
     };
-
+    console.log("loadign coordenations");
+    
     this.watch = this.geolocation.watchPosition(options)
     .subscribe((position: Geoposition) => {
       console.log(position);
@@ -419,6 +471,7 @@ export class HomePage implements OnInit {
       lat: this.Coordinates.latitude,
       lng: this.Coordinates.longitude 
    }
+   console.log(this.latLng);
   }
   
   // geolocation options
@@ -428,6 +481,7 @@ export class HomePage implements OnInit {
   
   /* WORKING, MAS GPS LOKO, mudar forma de pegar coordenadas */
   async loadMap(){
+    this.getCurrentCoordinates();
     this.loading = await this.loadingCtrl.create({ message: 'Aguarde...'});
     await this.loading.present();
 
@@ -436,10 +490,19 @@ export class HomePage implements OnInit {
       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBTNRO9es7fPuPAh2WXwhu6AQjSW_8UOKE'
     });
 
-    console.log( this.latLng );
-  
+    console.log(this.latLng);
+    const myLat = Number(localStorage.getItem("lat"));
+    const myLng = Number(localStorage.getItem("lng"));
+    console.log(myLat, myLng);
+    this.latLng = {
+      lat: myLat,
+      lng: myLng 
+    }
+    console.log(this.latLng);
 
     const MapOptions: GoogleMapOptions = {
+      maxZoom: 20,
+      minZoom: 8,
       controls: {
         zoom: false
       },
@@ -450,8 +513,8 @@ export class HomePage implements OnInit {
       styles: this.mapStyles
     }
 
-    this.Map = GoogleMaps.create(this.mapElement, MapOptions);
     try{
+      this.Map = GoogleMaps.create(this.mapElement, MapOptions);
       await this.Map.one(GoogleMapsEvent.MAP_READY);
       this.addOriginMarker();
       const myLocation: MyLocation = await this.Map.getMyLocation();
@@ -469,7 +532,7 @@ export class HomePage implements OnInit {
     try{
       this.Map.animateCamera({
         target: this.latLng,
-        zoom: 16.5
+        zoom: 16
        });
 
       let icon: MarkerIcon = {
@@ -496,7 +559,7 @@ export class HomePage implements OnInit {
   async addOriginMarker2(){
     this.Map.animateCamera({
       target: this.latLng,
-      zoom: 16.5
+      zoom: 16
      });
 
     this.loadDriver = true;
@@ -510,7 +573,7 @@ export class HomePage implements OnInit {
     };
 
     this.originMarker = this.Map.addMarkerSync({
-      title: 'Origem',
+      title: 'Minha localização',
       icon: icon,
       position: this.latLng,
     });
@@ -599,18 +662,16 @@ export class HomePage implements OnInit {
       });
       this.Map.animateCamera({
         target: points,
-        zoom: 13
+        zoom: 8
       });
-      this.Map.moveCamera({target: points, zoom: 13});
+      //this.Map.moveCamera({target: points, zoom: 10});
     });
   }
 
   pickLocation(){
-    this.Map.moveCamera({
-      target: this.latLng,
-      zoom: 16.5
-     });
-     this.addOriginMarker();
+    this.originMarker.setIcon = null;
+    this.originMarker = null;
+    this.addOriginMarker();
   }
 
   randomNumber() {
@@ -622,75 +683,64 @@ export class HomePage implements OnInit {
   confirmRide(){
     this.afAuth.authState.subscribe(async user => {
       if (user) {
-        //Checkout
-        /* this.payWithPaypal(); */
-        //
-        this.searchingDriver = true;
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
-        this.token = this.userData.uid;
-        //Start load
-        this.randomNumber();
-        this.Map.moveCamera({
-          target: this.latLng,
-          zoom: 16.5
-         });
-        await this.Map.clear();
-        /* this.destionation = null; */
-        this.addOriginMarker2();
         const orderToString = this.randomID.toString();
-        //CHAMAR CARREGAMENTO E PROCURA DE MOTORISTAS
-        //Tirar points line, e manter Marker origem on center
-        //sobrepor menu com z-inde
-        //mostrar mensagem de procura/
         const ID = this.token;
         const Ride = this.Ride;
+        const cancel = false;
+        const complete = false;
         const hour = this.myHour;
         const order = orderToString.replace(/[\D]+/g, '');
+        this.order = order;
         const startPointTitle = this.startPointTitle;
         const endPointTitle = this.endPointTitle;
         const pointsTrip = this.pointsTrip;
         const lat1 = this.latLng.lat;
-        const lat2 = this.latLng2.lat;
+        const Destinylat2 = this.latLng2.lat;
         const lng1 = this.latLng.lng;
-        const lng2 = this.latLng2.lng;
+        const Destinylng2 = this.latLng2.lng;
         const kmRide = this.kmRide;
         const kmRideValue = this.kmRideValue;
         const timeRide = this.timeRide;
-        const price = this.price;
-        this.afstore.doc(`trip/${this.token}`).set({
-          ID,
-          Ride,
-          hour,
-          order,
-          startPointTitle,
-          endPointTitle,
-          pointsTrip,
-          lat1,
-          lat2,
-          lng1,
-          lng2,
-          kmRide,
-          kmRideValue,
-          timeRide,
-          price
+        const price = this.priceAvarisPremium || this.price;
+        const fatura = this.FaturaID;
+        this.afstore.doc(`trips/${order}`).set({
+            ID,
+            Ride,
+            complete,
+            cancel,
+            hour,
+            order,
+            startPointTitle,
+            endPointTitle,
+            pointsTrip,
+            lat1,
+            Destinylat2,
+            lng1,
+            Destinylng2,
+            kmRide,
+            kmRideValue,
+            timeRide,
+            price,
+            fatura
         });
-        
+        this.waitingDriver();
+        /* { merge: true } = to arrays */
         console.log(ID,
           Ride,
+          complete,
+          cancel,
           hour,
           order,
           startPointTitle,
           endPointTitle,
           pointsTrip,
           lat1,
-          lat2,
+          Destinylat2,
           lng1,
-          lng2,
+          Destinylng2,
           kmRide,
           kmRideValue,
-          timeRide);
+          timeRide, price, fatura);
       } else {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
@@ -756,25 +806,77 @@ export class HomePage implements OnInit {
       this.allowStep1 = true;
     }
   }
-  nextStep(){
-    this.step_request = false;
+
+  nextStepNormal(){
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.step_request = false;
+      }else {
+        this.menu();
+      }
+    });  
+  }
+
+  nextStepPremium(){
+    this.afAuth.authState.pipe(take(1)).subscribe(async data => {
+      if (data && data.email && data.uid){
+        this.authService.getDatas(data.uid).subscribe( data => {
+            this.profileUser = data;   
+            if(this.profileUser.avarispremium != undefined){
+              this.PREMIUM = this.profileUser.avarispremium[0].avaris;
+              if(this.PREMIUM == true){
+                this.step_request = false;
+              }else{
+                this.navCtrl.navigateForward("avaris-premium");
+              }
+            }else{
+              this.navCtrl.navigateForward("avaris-premium");
+            }
+        });
+      }else{
+        this.menu();
+      }
+    }); 
   }
 
   async back(){
-    try{
-      await this.Map.clear();
-      this.destionation = null;
-      this.addOriginMarker();
-      //
-      this.opt1 = false;
-      this.opt2 = false;
-      this.opt3 = false;
-      this.allowStep1 = false;
-      this.loadDriver = false;
-      this.step_request = true;
-    } catch(error){
-      console.error(error);
-    }
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Atenção',
+      message: 'Você tem certeza que gostaria de cancelar sua corrida?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          handler: (blah) => {
+            console.log('Nao cancelar corrida');
+          }
+        }, {
+          text: 'Sim',
+          handler: async () => {
+            console.log('Cancelar corrida');
+            try{
+              this.searchingDriver = false;
+              await this.Map.clear();
+              this.destionation = null;
+              this.pickLocation();
+              //
+              this.cancelTrip();
+              this.opt1 = false;
+              this.opt2 = false;
+              this.opt3 = false;
+              this.allowStep1 = false;
+              this.loadDriver = false;
+              this.step_request = true;
+            } catch(error){
+              console.error(error);
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   /* Navegation - pages*/
@@ -783,44 +885,144 @@ export class HomePage implements OnInit {
     this.menuCtrl.open('end');
   }
 
+  closePopUp(){
+    this.showPremiumPage = false;
+  }
+
   getPriceTravel(){
     //SCRIPT TO CALCULE THE PRICE OF TRAVEL DESTINATION
     //Pegar por base as corridas do mesmo local do ponto x ao Y no uber e analisar o preço!
     //ANALISAR TAMBÉM O PREÇO DA CORRIDA POR 1KM, 2km, 5km, 10km >>>
     //Minuto - km = O RESULTADO SERÁ O VALOR DA VIAGEM.
-    
-    
-    //Price Full
-    //km = 1,35 
-    //m = 10cent
-    this.kmDistance; ///////////////////////////////////variable 1
-    this.minTOend; /////////////////////////////////////variable 2
-    let km1 = 2.70;
-    const calculeKM1 = this.kmDistance * km1;
-    let min1 = 0.20;
-    const calculeM1 = this.minTOend * min1;
-    const priceFull = calculeKM1 + calculeM1;
-    this.price = priceFull;
-    console.log(calculeKM1, calculeM1, priceFull);
-    const descont = ((priceFull)*50);
-    console.log(descont);
+    //Until = 2KM
+    if(this.kmDistance < 1.99){
+      this.normalTrip = true;
+      this.AVARISPREMIUM = false;
+      console.log('The KM of this trip is ', this.kmDistance);
+      //Price Full
+      //km = 8,25 FIXED 
+      //m = 0,15 CENT
+      this.kmDistance; ///////////////////////////////////variable 1
+      this.minTOend; /////////////////////////////////////variable 2
+      let km = 8.25;
+      const calculeKM = km;
+      let min = 0.15;
+      const calculeM = this.minTOend * min;
+      const priceFull = calculeKM + calculeM;
+      this.price = priceFull;
+      console.log(calculeKM, calculeM, priceFull);
+    }
+    //from 2KM until 5.99KM 
+    if(this.kmDistance > 2.0 && this.kmDistance < 5.99){
+      this.normalTrip = false;
+      this.AVARISPREMIUM = true;
+      console.log('The KM of this trip is ', this.kmDistance);
+      //Price - SUBSCRIBS AVARIS
+      //km = 8,50 
+      //m = 10cent
+      this.kmDistance; ///////////////////////////////////variable 1
+      this.minTOend; /////////////////////////////////////variable 2
+      let km = 8.50;
+      const calculeKM = km;
+      let min = 0.15;
+      const calculeM = this.minTOend * min;
+      const priceAvarisPremium = calculeKM + calculeM;
+      this.priceAvarisPremium = priceAvarisPremium;
+      console.log(calculeKM, calculeM, priceAvarisPremium);
+    }
+    //from 6KM until 7.99KM 
+    if(this.kmDistance > 6.0 && this.kmDistance < 7.99){
+      this.normalTrip = false;
+      this.AVARISPREMIUM = true;
+      console.log('The KM of this trip is ', this.kmDistance);
+      //Price - SUBSCRIBS AVARIS
+      //km = 8,50 
+      //m = 10cent
+      this.kmDistance; ///////////////////////////////////variable 1
+      this.minTOend; /////////////////////////////////////variable 2
+      let km = 10.00;
+      const calculeKM = km;
+      let min = 0.15;
+      const calculeM = this.minTOend * min;
+      const priceAvarisPremium = calculeKM + calculeM;
+      this.priceAvarisPremium = priceAvarisPremium;
+      console.log(calculeKM, calculeM, priceAvarisPremium);
+    }
+    //from 8KM until 11.99KM 
+    if(this.kmDistance > 8.0 && this.kmDistance < 11.99){
+      this.normalTrip = false;
+      this.AVARISPREMIUM = true;
+      console.log('The KM of this trip is ', this.kmDistance);
+      //Price - SUBSCRIBS AVARIS
+      //km = 8,50 
+      //m = 10cent
+      this.kmDistance; ///////////////////////////////////variable 1
+      this.minTOend; /////////////////////////////////////variable 2
+      let km = 10.00;
+      const calculeKM = km;
+      let min = 0.15;
+      const calculeM = this.minTOend * min;
+      const priceAvarisPremium = calculeKM + calculeM;
+      this.priceAvarisPremium = priceAvarisPremium;
+      console.log(calculeKM, calculeM, priceAvarisPremium);
+    }
+    //from 12KM until 19.99KM 
+    if(this.kmDistance > 12.0 && this.kmDistance < 19.99){
+      this.normalTrip = false;
+      this.AVARISPREMIUM = true;
+      console.log('The KM of this trip is ', this.kmDistance);
+      //Price - SUBSCRIBS AVARIS
+      //km = 8,50 
+      //m = 10cent
+      this.kmDistance; ///////////////////////////////////variable 1
+      this.minTOend; /////////////////////////////////////variable 2
+      let km = 10.00;
+      const calculeKM = km;
+      let min = 0.15;
+      const calculeM = this.minTOend * min;
+      const priceAvarisPremium = calculeKM + calculeM;
+      this.priceAvarisPremium = priceAvarisPremium;
+      console.log(calculeKM, calculeM, priceAvarisPremium);
+    }
+     //from 20KM until ...
+     if(this.kmDistance > 20){
+      this.normalTrip = false;
+      this.AVARISPREMIUM = true;
+      console.log('The KM of this trip is ', this.kmDistance);
+      this.kmDistance; ///////////////////////////////////variable 1
+      this.minTOend; /////////////////////////////////////variable 2
+      let km = 1.30;
+      const calculeKM = this.kmDistance * km;
+      let min = 0.10;
+      const calculeM = this.minTOend * min;
+      const priceAvarisPremium = calculeKM + calculeM;
+      this.priceAvarisPremium = priceAvarisPremium;
+      console.log(calculeKM, calculeM, priceAvarisPremium);
+    }
 
-    //Price with Descont - SUBSCRIBS
-    //km = 1,35 
-    //m = 10cent
-    this.kmDistance; ///////////////////////////////////variable 1
-    this.minTOend; /////////////////////////////////////variable 2
-    let km2 = 1.35;
-    const calculeKM2 = this.kmDistance * km2;
-    let min2 = 0.10;
-    const calculeM2 = this.minTOend * min2;
-    const priceWithDescont = calculeKM2 + calculeM2;
-    this.priceDescont = priceWithDescont;
-    console.log(calculeKM2, calculeM2, priceWithDescont);
-    const descont2 = ((priceWithDescont)*50);
-    console.log(descont2);
+  }
+
+  verifyMethod(){
+    if(this.profileUser.cards.length >= 1){
+      this.choisemethod = true;
+      this.cards = this.profileUser.cards;
+      console.log(this.cards);
+      this.cardLast4 = this.cards[0].lastNumbers;
+      this.cardName = this.cards[0].name;
+      this.cardBrand = this.cards[0].brand;
+      this.cardSelected = this.cards[0].card;
+      console.log(this.cardLast4, this.cardName, this.cardBrand, this.cardSelected);
+    }else{
+      this.choisemethod = false;
+    }
+  }
+
+  addCard(){
+    this.navCtrl.navigateForward("wallet");
+  }
+
+  choiseMethod(){
     
-    /* this.brazilianCurrency(0, price) */
   }
 
   brazilianCurrency(money, decimalEmbeded) {
@@ -848,36 +1050,212 @@ export class HomePage implements OnInit {
   //
   //
   //
-  //Code to API Checkout and Payment ===>>>
-  payWithPaypal() {
-    this.payPal.init({
-      PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
-      PayPalEnvironmentSandbox: 'AfFmfMMNUrTblSOumTxKBuAs0kVKozz-taTYP0h8o1LdAI5i6scgtr6vmzE__Om_97Xt5a46KGE_qIPo'
-    }).then(() => {
-      // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-      this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-        // Only needed if you get an "Internal Service Error" after PayPal login!
-        //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
-      })).then(() => {
-        let payment = new PayPalPayment(this.paymentAmount, this.currency, 'Description', 'sale');
-        this.payPal.renderSinglePaymentUI(payment).then((res) => {
-          console.log(res);
-          // Successfully paid
-        }, () => {
-          // Error or render dialog closed without being successful
-        });
-      }, () => {
-        // Error in configuration
-      });
-    }, () => {
-      // Error in initialization, maybe PayPal isn't supported or something else
+  makeTrigger(){
+    this.isLoad = true;
+    this.loads = true;
+    this.randomNumber();
+    //Key Authorization: 20220104
+    let proxy = "https://api-cors-proxy-avaris.herokuapp.com/";
+    let url = proxy+"https://api.iugu.com/v1/web_hooks?api_token=BF48A73439D7BF9676337F97DBCB9929B959D8D3CB7982BD6512DC2FA023267A";
+
+    let trigger = {
+      "event": "invoice.status_changed",
+      "url": "https://www.avaris.app/",
+      "authorization": "20220104"
+    }
+    this.http.post(url, trigger, {})
+    .subscribe(async res => {
+      console.log(res);
+      this.Datatrigger = res;
+      let status = this.Datatrigger.active;
+      if(status == true){
+        this.makeInvoice();
+      }else{
+        console.log('error status');
+      }
+    }, async err => {
+      console.log(err);
+      this.isLoad = false;
+      this.loads = false;
     });
+    
+  }
+  makeInvoice(){
+    const order = this.randomID.toString();
+    let day = new Date().getDate()
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    const date = day + '-' + month + '-' + year;
+
+    if(this.kmDistance < 1.99){
+      const result = parseFloat(this.price).toFixed(2);
+      const total = result.replace('.', '');
+      console.log(total);
+      
+      let proxy = "https://api-cors-proxy-avaris.herokuapp.com/";
+      let url = proxy+"https://api.iugu.com/v1/invoices?api_token=BF48A73439D7BF9676337F97DBCB9929B959D8D3CB7982BD6512DC2FA023267A";
+      
+      let Invoice = {
+        "ensure_workday_due_date": false,
+        "items": [
+          {
+            "description": "Corrida Avaris",
+            "quantity": 1,
+            "price_cents": total
+          }
+        ],
+        "payable_with": [
+          "credit_card"
+        ],
+        "email": this.Email,
+        "due_date": date,
+        "customer_id": this.CUS_ID,
+        "order_id": order
+      }
+      this.http.post(url, Invoice, {})
+      .subscribe(async res => {
+        console.log(res);
+        this.Datainvoice = res;
+        let ID = this.Datainvoice.id;
+        this.makeCharge(ID);
+      }, async err => {
+        console.log(err);
+        this.isLoad = false;
+        this.loads = false;
+      });
+    }
+    if(this.kmDistance >= 2.0){
+      const result = parseFloat(this.priceAvarisPremium).toFixed(2);
+      const total = result.replace('.', '');
+      console.log(total);
+
+      let proxy = "https://api-cors-proxy-avaris.herokuapp.com/";
+      let url = proxy+"https://api.iugu.com/v1/invoices?api_token=BF48A73439D7BF9676337F97DBCB9929B959D8D3CB7982BD6512DC2FA023267A";
+      
+      let Invoice = {
+        "ensure_workday_due_date": false,
+        "items": [
+          {
+            "description": "Corrida Avaris Premium",
+            "quantity": 1,
+            "price_cents": total
+          }
+        ],
+        "payable_with": [
+          "credit_card"
+        ],
+        "email": this.Email,
+        "due_date": date,
+        "customer_id": this.CUS_ID,
+        "order_id": order
+      }
+
+      this.http.post(url, Invoice, {})
+      .subscribe(async res => {
+        console.log(res);
+        this.Datainvoice = res;
+        let ID = this.Datainvoice.id;
+        this.makeCharge(ID);
+      }, async err => {
+        console.log(err);
+        this.isLoad = false;
+        this.loads = false;
+      });
+    }
+  }
+  makeCharge(id){
+    let proxy = "https://api-cors-proxy-avaris.herokuapp.com/";
+    let url = proxy+"https://api.iugu.com/v1/charge?api_token=BF48A73439D7BF9676337F97DBCB9929B959D8D3CB7982BD6512DC2FA023267A";
+    
+    let Charge = {
+      "customer_payment_method_id": this.cardSelected,
+      "invoice_id": id
+    }
+    
+    this.http.post(url, Charge, {})
+      .subscribe(async res => {
+        console.log(res);
+        this.isLoad = false;
+        this.loads = false;
+        this.Datacharge = res;
+        this.FaturaID = this.Datacharge.invoice_id
+        this.Map.moveCamera({
+          target: this.latLng,
+          zoom: 16.5
+        });
+        await this.Map.clear();
+        this.searchingDriver = true;
+        this.addOriginMarker2();
+        this.confirmRide();
+      }, async err => {
+        console.log(err);
+        this.loads = false;
+        this.warning = true;
+        //Mensagem de erro, falta de crédito no cartao ou erro no cartao
+      });
   }
 
+  waitingDriver(){
+    this.db.collection("trips").doc(this.order).valueChanges()
+    .subscribe(data => {
+      this.myTrip = data;
+      console.log(this.myTrip);
+    });
+    if(this.myTrip.Ride == true){
+      this.searchingDriver = false;
+      this.isLoad = true;
+      this.myTravel = true;
+      this.dataDriver();
+    }else{
+      setTimeout(()=>{},0);
+      setTimeout(()=>{
+        this.waitingDriver();
+        console.log("esperando motorista...");
+      },2500);      
+    }
+  }
 
+  dataDriver(){
+    this.db.collection("motoristas").doc(this.myTrip.motorista).valueChanges()
+      .subscribe(data => {
+        this.driverData = data;
+        console.log(this.driverData);
+      })
+      if(this.driverData.photo != undefined){
+        this.driverPhoto = true;
+      }else{
+        this.driverPhoto = false;
+      }
+  }
 
-
-
+  async cancelTrip(){
+    //cancel travel order id in BD
+    let alert = await this.alertController.create({
+      header: 'Cancelar corrida?',
+      message: 'Você tem certeza que deseja cancelar sua corrida?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            console.log('viagem cancelada');
+            this.isLoad = false;
+            this.myTravel = false;
+            this.afstore.doc(`trips/${this.order}`).update({
+              cancel: true
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   //Get current coordinates of device
   /* getGeolocation() {
@@ -920,6 +1298,11 @@ export class HomePage implements OnInit {
     return address.slice(0, -2);
   }
 
+  CloseBox(){
+    this.isLoad = false;
+    this.warning = false;
+    this.loads = false;
+  }
 
   chat(){
     this.navCtrl.navigateForward('chat');

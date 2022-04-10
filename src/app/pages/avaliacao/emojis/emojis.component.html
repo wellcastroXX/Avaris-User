@@ -1,0 +1,10 @@
+<ion-grid class="ion-rating-container">
+    <ion-row>
+      <ion-col tappable (click)="emojiClicked(1)"><img [ngClass]="selecionado == 1 ? '' : 'nao-selecionado'" src="../../../../assets/emojis/pessimo.png" alt=""></ion-col>
+      <ion-col tappable (click)="emojiClicked(2)"><img [ngClass]="selecionado == 2 ? '' : 'nao-selecionado'" src="../../../../assets/emojis/ruim.png" alt=""></ion-col>
+      <ion-col tappable (click)="emojiClicked(3)"><img [ngClass]="selecionado == 3 ? '' : 'nao-selecionado'" src="../../../../assets/emojis/bom.png" alt=""></ion-col>
+      <ion-col tappable (click)="emojiClicked(4)"><img [ngClass]="selecionado == 4 ? '' : 'nao-selecionado'" src="../../../../assets/emojis/otimo.png" alt=""></ion-col>
+      <ion-col tappable (click)="emojiClicked(5)"><img [ngClass]="selecionado == 5 ? '' : 'nao-selecionado'" src="../../../../assets/emojis/perfeito.png" alt=""></ion-col>
+    </ion-row>
+  </ion-grid>
+  

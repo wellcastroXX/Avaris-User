@@ -1,0 +1,150 @@
+ion-content{
+    --background: #fff;
+}
+
+
+.item-title{
+    --background: transparent; margin-left: -0.5rem;
+    ion-label{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 22pt; color: #031D44;}
+    .sub{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; }
+}
+
+.storys{ margin-left: -0.7rem; }
+
+.circle-progress{ background-color: transparent;  border-radius: 50%; width: 76px; height: 76px; 
+  border: 2px #031D44 solid; margin: auto; display: block; margin-top: 1.5rem; }
+.circle-icon{
+  background-color: #031D44; border-radius: 50%; width: 66px; height: 66px; margin-top: 0.2rem; margin-left: 0.2rem;
+  img{ margin-top: 1rem; margin-left: 1.1rem; border-radius: 20%; height: 32px; height: 32px; }
+}
+.circle-pic{
+  background-color: #031D44; border-radius: 50%; width: 66px; height: 66px; margin-top: 0.2rem; margin-left: 0.2rem;
+  img{ border-radius: 50%; height: 66px; height: 66px; }
+}
+
+.edit-pic{ margin-top: 0.5rem;
+  p{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #101010; margin: auto; display: block;}
+  img{ width: 20px; height: 20px; margin-left: 0.3rem; position: absolute; margin-top: 0rem; }
+}
+
+.item1{
+  margin-left: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010;
+  input{ background-color: transparent;
+    border-radius: 10px; width: 95%; height: 35px; border: none; border: 2px solid #031D44; margin-top: 0.5rem;
+  }
+}
+.item2{
+  margin-left: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010;
+  input{ background-color: transparent;
+    border-radius: 10px; width: 95%; height: 35px; border: none; border: 2px solid #031D44; margin-top: 0.5rem;
+  }
+}
+.item3{
+  margin-left: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010;
+  input{ background-color: transparent;
+    border-radius: 10px; width: 95%; height: 35px; border: none; border: 2px solid #031D44; margin-top: 0.5rem;
+  }
+}
+.item4{
+  margin-left: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010;
+  input{ background-color: transparent;
+    border-radius: 10px; width: 95%; height: 35px; border: none; border: 2px solid #031D44; margin-top: 0.5rem;
+  }
+}
+.item5{
+  margin-left: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010;
+  input{ background-color: transparent;
+    border-radius: 10px; width: 95%; height: 35px; border: none; border: 2px solid #031D44; margin-top: 0.5rem;
+  }
+}
+.item6{
+  margin-left: 1rem; font-family: 'Coco Sharp'; font-weight: 500; font-size: 10pt; color: #101010;
+  input{ background-color: transparent;
+    border-radius: 10px; width: 95%; height: 35px; border: none; border: 2px solid #031D44; margin-top: 0.5rem;
+  }
+}
+
+.border-story{ width: 90px; height: 90px; border-radius: 50%; border: 2px solid #0CBA70;}
+.story{
+  background-color: rgb(238, 238, 238); width: 80px; height: 80px; border-radius: 50%; margin-top: 0.2rem; margin-left: 0.2rem;
+  img{ width: 80%; margin-top: 2rem; margin-left: 0.5rem; }
+}
+.title-story{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 9pt; color: #031D44; text-align: center; }
+
+.empty{ --background: transparent; margin: auto; display: block;
+    ion-icon{ width: 18px; height: 18px; color: #031D44; }ion-label{ font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #031D44;}
+}
+
+.messages{ --background: transparent; width: 100%; height: 200px; }
+
+.bar-menu{
+    background-color: #031D44; border-radius: 18px; position: absolute; margin: auto; display: block;
+    left: 0; right: 0; bottom: 0.5rem; z-index: 901; width: 95%; height: 50px;
+  }
+  .bar-menu-itens{ width: 100%; height: 50px; }
+  .active-bar{
+    background-color: #FFF; border-radius: 14px; width: 106px; height: 95%; margin: auto; display: block; margin-top: 0.05rem;
+    img{ height: 18px; width: 18px; margin-left: 0.7rem; margin-top: 0.6rem; }
+    h1{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 9pt; text-align: center; margin-left: 1rem; margin-top: -1.2rem; color: #031D44; }
+  }
+  .bar-item{margin: auto; display: block; width: 15px; height: 15px; margin-top: 0.6rem;
+    h1{ display: none; }
+  }
+  .bar-item2{margin: auto; display: block; width: 18px; height: 18px; margin-top: 0.7rem;
+    h1{ display: none; }
+  }
+
+.historico-chat {
+  height: 40%;
+  overflow: hidden;
+}
+
+.usuario-linha {
+  display: flex;
+  align-items: center;
+}
+
+.usuario-nome {
+  margin-left: 10px;
+}
+
+.atualizar {
+  background-color: #031D44; border-radius: 15px; position: absolute; bottom: 1rem; left: 0; right: 0;
+  margin-top: 10px; display: block; margin: auto; width: 90%; height: 56px; text-align: center; color: #FFF; font-size: 12pt;
+  font-family: 'Coco Sharp'; font-weight: 400;
+}
+
+
+//
+.load{
+	position: absolute; top: 50%; transform: translateY(-50%);  z-index: 1000; left: 0; right: 0;
+}
+
+.no-mask{
+   
+}
+.mask{
+  display:block;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(15px);
+  -o-filter: blur(15px);
+  -ms-filter: blur(15px);
+  filter: blur(1px);
+  opacity: 0.95;
+  z-index: 999;
+}
+
+.boxphoto{
+  width: 90%; height: 250px; border-radius: 20px; background-color: #FFF; box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); margin: auto; display: block;
+  h1{ font-family: 'Coco Sharp'; font-weight: 700; font-size: 14pt; color: #101010; margin: auto; display: block; text-align: center; }
+  .btns_save_ph{
+    margin-top: 2.5rem;
+    ion-col{ width: 100%; 
+      .c{ background-color: transparent; width: 90%; height: 42px; margin: auto; display: block; font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #bd4148;}
+      .a{ background-color: #031D44; width: 90%; height: 42px; border-radius: 22px; margin: auto; display: block;  font-family: 'Coco Sharp'; font-weight: 500; font-size: 11pt; color: #FFF;
+        -webkit-box-shadow: 0px 0px 26px -5px rgba(3,29,68,0.5); -moz-box-shadow: 0px 0px 26px -5px rgba(3,29,68,0.5); box-shadow: 0px 0px 26px -5px rgba(3,29,68,0.5);
+      }
+    }
+  }
+}

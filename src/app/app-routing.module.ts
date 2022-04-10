@@ -58,6 +58,14 @@ const routes: Routes = [
   {
     path: 'help',
     loadChildren: () => import('./pages/help/help.module').then( m => m.HelpPageModule)
+  },
+  {
+    path: 'avaliacao',
+    loadChildren: () => import('./pages/avaliacao/avaliacao.module').then( m => m.AvaliacaoPageModule)
+  },
+  {
+    path: 'avaris-premium',
+    loadChildren: () => import('./pages/avaris-premium/avaris-premium.module').then( m => m.AvarisPremiumPageModule)
   }
 ];
 

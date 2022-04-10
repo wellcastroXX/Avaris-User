@@ -1,6 +1,6 @@
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row style="margin-top: 1.5rem;">
       <ion-item style="--background: transparent; margin-left: -0.5rem;" lines='none' (click)='home()'>
         <ion-icon name="arrow-back-outline" style="width: 18px; height: 18px; color: #031D44;"></ion-icon>
       </ion-item>
@@ -10,6 +10,24 @@
         <ion-label>Configurações</ion-label>
         <ion-icon name="settings"></ion-icon>
       </ion-item>
+    </ion-row>
+
+    <ion-row style="margin-top: 1rem;">
+      <ion-card class="option">
+        <img src="../../../assets/icon/shield-blank-solid.svg">
+        <ion-label>Segurança</ion-label>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-card>
+      <ion-card class="option" >
+        <img src="../../../assets/icon/lock-solid.svg">
+        <ion-label>Privacidade</ion-label>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-card>
+      <ion-card class="option">
+        <img src="../../../assets/icon/bell-regular.svg">
+        <ion-label>Notificações</ion-label>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-card>
     </ion-row>
   </ion-grid>
 </ion-content>
